@@ -1,0 +1,7 @@
+.DS_Store
+**/.DS_Store
+
+# Local scratch / unused media (too large or not referenced by the site)
+*.mov
+Untitled.mov
+download (1).mp4
