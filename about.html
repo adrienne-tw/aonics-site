@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us — Aonics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=164" />
+  </head>
+  <body class="page-about">
+    <header class="site-header" id="site-header">
+      <div class="site-header-inner">
+        <a href="index.html" class="logo" aria-label="Aonics home">
+          <img
+            class="logo-img"
+            src="assets/Logo_White.svg"
+            alt="Aonics"
+            width="1134"
+            height="338"
+          />
+        </a>
+        <nav class="nav" id="site-nav" aria-label="Primary">
+          <ul class="nav-list">
+            <li class="nav-item nav-item--has-dropdown">
+              <a href="about.html" class="nav-link nav-link--current" aria-current="page"
+                >About Us
+                <span class="nav-caret" aria-hidden="true">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path
+                      d="M2.5 4.25 6 7.75l3.5-3.5"
+                      stroke="currentColor"
+                      stroke-width="1.35"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <div class="nav-dropdown" role="region" aria-label="About">
+                <div class="nav-dropdown-panel">
+                  <a class="nav-dropdown-link" href="about.html">
+                    <span class="nav-dropdown-icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
+                    <span class="nav-dropdown-copy">
+                      <span class="nav-dropdown-title">Our Story</span>
+                    </span>
+                  </a>
+                  <a class="nav-dropdown-link" href="about.html#about-cta-heading">
+                    <span class="nav-dropdown-icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M8 7h8v10H8z" stroke-linejoin="round" />
+                        <path d="M10 11h4M10 14h3" stroke-linecap="round" />
+                        <path d="M12 7V5" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="nav-dropdown-copy">
+                      <span class="nav-dropdown-title">Careers</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item nav-item--has-dropdown">
+              <a class="nav-link" href="index.html#technology"
+                >Technology
+                <span class="nav-caret" aria-hidden="true">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path
+                      d="M2.5 4.25 6 7.75l3.5-3.5"
+                      stroke="currentColor"
+                      stroke-width="1.35"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <div class="nav-dropdown" role="region" aria-label="Technology">
+                <div class="nav-dropdown-panel">
+                  <a class="nav-dropdown-link" href="digital-platform.html">
+                    <span class="nav-dropdown-icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <rect x="4" y="5" width="16" height="11" rx="1.5" stroke-linejoin="round" />
+                        <path d="M8 9h8M8 12h5" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="nav-dropdown-copy">
+                      <span class="nav-dropdown-title">Digital platform</span>
+                    </span>
+                  </a>
+                  <a class="nav-dropdown-link" href="hardware.html">
+                    <span class="nav-dropdown-icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M8 16V8h8v8" stroke-linejoin="round" />
+                        <path d="M10 12h4M12 10v4" stroke-linecap="round" />
+                        <path d="M6 18h12" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="nav-dropdown-copy">
+                      <span class="nav-dropdown-title">Hardware</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li><a class="nav-link" href="contact.html">Contact Us</a></li>
+            <li><a class="btn btn-ghost nav-demo-btn nav-cta" href="index.html#demo">Get a Demo &gt;</a></li>
+          </ul>
+        </nav>
+        <button
+          type="button"
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Open menu"
+        >
+          <span class="nav-toggle-box" aria-hidden="true">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <main class="about-main">
+      <section class="about-hero" aria-labelledby="about-heading">
+        <div class="about-hero-inner">
+          <h1 id="about-heading" class="reveal">Building autonomy for the world’s solar infrastructure</h1>
+          <p class="about-hero-lede reveal">
+            Aonics brings together robotics, computer vision, and operations software so utility-scale solar
+            teams can inspect, respond, and plan with confidence—on the ground and from the control room.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="about-story-rail"
+        id="about-story-rail"
+        aria-labelledby="about-story-heading"
+        data-story-slides="4"
+      >
+        <div class="about-story-rail-host">
+          <div class="about-story-rail-sticky">
+            <div class="about-hero-inner about-story-rail-head">
+              <div class="about-story-rail-intro">
+                <h2 id="about-story-heading" class="reveal">How we got here</h2>
+              </div>
+            </div>
+            <div class="about-story-rail-stage">
+              <ul class="about-story-rail-track" id="about-story-rail-track">
+                  <li class="about-story-card">
+                    <article class="about-story-card-inner">
+                      <figure class="about-story-card-media about-story-card-media--innovation">
+                        <img
+                          src="assets/about-story-innovation-stage.png?v=2"
+                          alt="Team with a ground robot on the innovation stage at a solar industry event"
+                          width="2400"
+                          height="1350"
+                          loading="eager"
+                          decoding="async"
+                        />
+                      </figure>
+                      <div class="about-story-card-text reveal">
+                        <h3 class="about-story-card-title">Built in the field</h3>
+                        <p class="about-story-card-body">
+                          We focused first on what crews actually do on site—walking rows, logging issues, coordinating
+                          follow-up—so the product stays grounded in real O&amp;M workflows.
+                        </p>
+                      </div>
+                    </article>
+                  </li>
+                  <li class="about-story-card">
+                    <article class="about-story-card-inner">
+                      <figure class="about-story-card-media about-story-card-media--office">
+                        <img
+                          src="assets/about-story-team-office.png?v=2"
+                          alt="Team members together in the office and workshop"
+                          width="1600"
+                          height="2133"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </figure>
+                      <div class="about-story-card-text reveal">
+                        <h3 class="about-story-card-title">Seeing the whole plant</h3>
+                        <p class="about-story-card-body">
+                          Computer vision and robotics are pieces of a larger picture: consistent capture, structured
+                          findings, and software that turns imagery into decisions operators trust.
+                        </p>
+                      </div>
+                    </article>
+                  </li>
+                  <li class="about-story-card">
+                    <article class="about-story-card-inner">
+                      <figure class="about-story-card-media about-story-card-media--field">
+                        <img
+                          src="assets/about-story-field-technicians.png?v=2"
+                          alt="Field technicians and inspection robot between rows at a solar site"
+                          width="1600"
+                          height="2133"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </figure>
+                      <div class="about-story-card-text reveal">
+                        <h3 class="about-story-card-title">Control room to crew</h3>
+                        <p class="about-story-card-body">
+                          We design for both sides of the fence—dispatchers planning work and technicians closing it
+                          out—so priorities stay aligned when conditions change mid-week.
+                        </p>
+                      </div>
+                    </article>
+                  </li>
+                  <li class="about-story-card">
+                    <article class="about-story-card-inner">
+                      <figure class="about-story-card-media about-story-card-media--inspection">
+                        <img
+                          src="assets/about-story-robot-inspection.png?v=2"
+                          alt="Operator with inspection robot on a path between solar panel rows"
+                          width="2400"
+                          height="1600"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </figure>
+                      <div class="about-story-card-text reveal">
+                        <h3 class="about-story-card-title">Scaling with partners</h3>
+                        <p class="about-story-card-body">
+                          As portfolios grow, teams need tools that keep pace—repeatable routes, comparable data across
+                          sites, and room to adopt autonomy without retraining everyone from scratch.
+                        </p>
+                      </div>
+                    </article>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </div>
+      </section>
+
+      <section class="about-section about-section--team" aria-labelledby="team-heading">
+        <div class="about-section-inner">
+          <h2 id="team-heading" class="reveal">Meet the team</h2>
+          <p class="about-team-intro reveal">
+            Photos load in black and white; hover a card to see full color. A bottom gradient keeps names readable on
+            any shot.
+          </p>
+          <ul class="about-team-grid">
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-morgan-ellis.png?v=3"
+                  alt="Morgan Ellis kneeling in a high-visibility vest beside a robotic rover at a solar farm"
+                  width="768"
+                  height="1024"
+                  decoding="async"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">Morgan Ellis</span>
+                  <span class="about-team-card-title">Founder, Chief Executive Officer</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-james-park.png?v=3"
+                  alt="Portrait of James Park in a white polo"
+                  width="768"
+                  height="1024"
+                  decoding="async"
+                  loading="lazy"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">James Park</span>
+                  <span class="about-team-card-title">Co-Founder, VP of Hardware</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-david-okine.png?v=3"
+                  alt="Smiling person with long dark hair in a white top and blue graduation stole outdoors"
+                  width="768"
+                  height="1024"
+                  decoding="async"
+                  loading="lazy"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">David Okine</span>
+                  <span class="about-team-card-title">Robotics Advisor</span>
+                  <span class="about-team-card-meta">Former Boston Dynamics</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-alex-rivera.png?v=3"
+                  alt="Alex Rivera standing with arms crossed between two autonomous robots on a grassy lawn"
+                  width="768"
+                  height="1024"
+                  decoding="async"
+                  loading="lazy"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">Alex Rivera</span>
+                  <span class="about-team-card-title">Solar O&amp;M Advisor</span>
+                  <span class="about-team-card-meta">Former First Solar</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-priya-nandakumar.png?v=3"
+                  alt="Field technician in a hard hat and safety vest with a tablet beside a robot at a solar site"
+                  width="768"
+                  height="1024"
+                  decoding="async"
+                  loading="lazy"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">Dr. Priya Nandakumar</span>
+                  <span class="about-team-card-title">Chief Technology Officer</span>
+                  <span class="about-team-card-meta">Former Google Research</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-placeholder-2.svg"
+                  alt="Portrait of Sam Okonkwo"
+                  width="480"
+                  height="600"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">Sam Okonkwo</span>
+                  <span class="about-team-card-title">Head of Product</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-placeholder-3.svg"
+                  alt="Portrait of Elena Varga"
+                  width="480"
+                  height="600"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">Elena Varga</span>
+                  <span class="about-team-card-title">VP of Partnerships</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="about-team-card">
+              <figure class="about-team-card-figure">
+                <img
+                  class="about-team-card-img"
+                  src="assets/team-placeholder-4.svg"
+                  alt="Portrait of Andrew Karn"
+                  width="480"
+                  height="600"
+                />
+                <figcaption class="about-team-card-caption reveal">
+                  <span class="about-team-card-name">Andrew Karn</span>
+                  <span class="about-team-card-title">Head of Public Sector Sales</span>
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="about-cta" aria-labelledby="about-cta-heading">
+        <div class="about-cta-split">
+          <div class="about-cta-panel">
+            <div class="about-cta-copy">
+              <h2 id="about-cta-heading" class="reveal">Come chase the sun</h2>
+              <p class="about-cta-intro reveal">
+                Backed by strong commercial traction and support from leading investors, we&rsquo;re growing our
+                team quickly to scale the business. Explore current open roles below, and check back often as we
+                continue to add new opportunities.
+              </p>
+              <a class="btn btn-ghost nav-demo-btn nav-cta reveal" href="contact.html">Join Us</a>
+            </div>
+          </div>
+        </div>
+        <div class="about-cta-visual" aria-hidden="true">
+          <img
+            src="assets/about-cta-solar.jpg?v=4"
+            alt=""
+            width="3750"
+            height="2499"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="footer-top">
+        <div class="footer-brand" id="demo">
+          <a href="index.html#top" class="logo logo--footer reveal" aria-label="Aonics home">
+            <img
+              class="logo-img logo-img--footer"
+              src="assets/Logo_White.svg"
+              alt="Aonics"
+              width="1134"
+              height="338"
+            />
+          </a>
+          <p class="footer-tagline reveal">AI-Powered Platform Revolutionizing Solar</p>
+          <a class="btn btn-ghost reveal" href="index.html#demo">Get a Demo &gt;</a>
+        </div>
+        <div class="footer-nav-grid">
+          <div class="footer-col reveal">
+            <h4>Platform</h4>
+            <ul>
+              <li><a href="#">Custom solutions</a></li>
+              <li><a href="contact.html#faq">FAQ</a></li>
+              <li><a href="index.html#demo">Get a demo</a></li>
+            </ul>
+          </div>
+          <div class="footer-col reveal">
+            <h4>Technology</h4>
+            <ul>
+              <li><a href="hardware.html">Hardware</a></li>
+              <li><a href="#">Case Studies</a></li>
+            </ul>
+          </div>
+          <div class="footer-col reveal">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="about.html" aria-current="page">About Us</a></li>
+              <li><a href="#">News &amp; Media</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy reveal">© 2023 Aonics. All rights reserved.</p>
+        <div class="footer-legal reveal">
+          <a href="#">Terms of Use</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        try {
+          var header = document.querySelector(".site-header");
+          var toggle = document.getElementById("nav-toggle");
+          var nav = document.getElementById("site-nav");
+          if (!header || !toggle || !nav) return;
+
+          var mq = window.matchMedia("(max-width: 900px)");
+
+          function setOpen(open) {
+            header.classList.toggle("is-nav-open", open);
+            toggle.setAttribute("aria-expanded", open ? "true" : "false");
+            toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+            document.body.classList.toggle("nav-menu-open", open);
+          }
+
+          function closeIfNeeded() {
+            if (!mq.matches) setOpen(false);
+          }
+
+          toggle.addEventListener("click", function () {
+            if (!mq.matches) return;
+            setOpen(!header.classList.contains("is-nav-open"));
+          });
+
+          nav.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+              if (mq.matches) setOpen(false);
+            });
+          });
+
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && header.classList.contains("is-nav-open")) {
+              setOpen(false);
+              toggle.focus();
+            }
+          });
+
+          if (typeof mq.addEventListener === "function") {
+            mq.addEventListener("change", closeIfNeeded);
+          } else if (typeof mq.addListener === "function") {
+            mq.addListener(closeIfNeeded);
+          }
+          window.addEventListener("resize", closeIfNeeded);
+        } catch (e) {}
+      })();
+
+      (function () {
+        try {
+          if (!window.IntersectionObserver) {
+            document.querySelectorAll(".reveal").forEach(function (el) {
+              el.classList.add("is-visible");
+            });
+            return;
+          }
+          var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+          if (reduce.matches) {
+            document.querySelectorAll(".reveal").forEach(function (el) {
+              el.classList.add("is-visible");
+            });
+            return;
+          }
+          var nodes = document.querySelectorAll(".reveal");
+          if (!nodes.length) return;
+          var obs = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                obs.unobserve(entry.target);
+              });
+            },
+            { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
+          );
+          nodes.forEach(function (el) {
+            obs.observe(el);
+          });
+        } catch (e) {}
+      })();
+    </script>
+    <script src="about-story-rail.js?v=13"></script>
+    <script src="site-header.js"></script>
+  </body>
+</html>
