@@ -625,7 +625,7 @@ ul {
 }
 
 body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] .hero-bg-video {
-  object-position: 56% 50%;
+  object-position: center center;
 }
 
 .hero[data-hero-video-bg] .hero-video-scrim {
@@ -657,7 +657,7 @@ body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] .
   body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] {
     background:
       linear-gradient(to top, rgba(5, 10, 18, 0.35) 0%, transparent 45%),
-      url("assets/home-hero-expanded.jpg?v=3") 56% 50% / cover no-repeat;
+      url("assets/sky.png?v=2") center / cover no-repeat;
   }
 }
 
