@@ -3822,13 +3822,16 @@ html.js .about-cta-copy > .reveal:nth-child(4) {
 
 @media (max-width: 900px) {
   .deployed-units-sticky {
-    height: auto;
-    min-height: 0;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    justify-content: center;
     padding-top: calc(var(--site-header-h) + var(--site-header-pad-top) + 0.5rem);
     padding-bottom: 0.75rem;
   }
 
   .deployed-units-title {
+    flex: 0 0 auto;
     margin-bottom: 0.75rem;
     font-size: clamp(1.15rem, 5vw, 1.65rem);
   }

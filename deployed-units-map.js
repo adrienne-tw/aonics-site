@@ -89,33 +89,46 @@
 
     var labelGrid = null;
     var labelChips = [];
+    var cachedHostHeight = -1;
+    var cachedLayoutKey = "";
 
     function refreshLabelGridRefs() {
       labelGrid = ensureMobileLabelGrid();
       labelChips = labelGrid ? labelGrid.querySelectorAll(".deployed-units-label-chip") : [];
     }
 
-    function syncHostHeight() {
+    function layoutKey() {
+      var h = window.innerHeight || document.documentElement.clientHeight || 600;
+      var w = window.innerWidth || document.documentElement.clientWidth || 1200;
+      var mode = isMobileLayout() ? "m" : "d";
+      return mode + ":" + w + "x" + h + ":" + revealVh() + "+" + holdVhForLayout();
+    }
+
+    function syncHostHeight(force) {
       if (isReduced()) {
         host.style.height = "";
         host.classList.add("deployed-units-host--reduced");
         host.classList.remove("deployed-units-host--mobile");
+        cachedHostHeight = -1;
+        cachedLayoutKey = "";
         return;
       }
       host.classList.remove("deployed-units-host--reduced");
       host.classList.toggle("deployed-units-host--mobile", isMobileLayout());
-      var h = window.innerHeight || document.documentElement.clientHeight || 600;
 
-      if (isMobileLayout()) {
-        var sticky = host.querySelector(".deployed-units-sticky");
-        var stickyH = sticky ? sticky.offsetHeight : 0;
-        var runway = h * (revealVh() + holdVhForLayout());
-        var total = Math.ceil(stickyH + runway);
-        host.style.height = Math.max(total, Math.ceil(h + runway * 0.85)) + "px";
+      var key = layoutKey();
+      if (!force && key === cachedLayoutKey && cachedHostHeight > 0) {
+        host.style.height = cachedHostHeight + "px";
         return;
       }
 
-      host.style.height = Math.ceil(h * (revealVh() + holdVhForLayout())) + "px";
+      var h = window.innerHeight || document.documentElement.clientHeight || 600;
+      var totalVh = revealVh() + holdVhForLayout();
+      var height = Math.ceil(h * totalVh);
+
+      cachedHostHeight = height;
+      cachedLayoutKey = key;
+      host.style.height = height + "px";
     }
 
     function revealProgress(t) {
@@ -281,7 +294,7 @@
 
     function onResizeOrInit() {
       refreshLabelGridRefs();
-      syncHostHeight();
+      syncHostHeight(true);
       computeAllLabelLayouts();
       syncMarkers();
     }
@@ -292,7 +305,7 @@
       requestAnimationFrame(function () {
         layoutQueued = false;
         refreshLabelGridRefs();
-        syncHostHeight();
+        syncHostHeight(true);
         computeAllLabelLayouts();
         syncMarkers();
       });
