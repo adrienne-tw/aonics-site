@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=164" />
+    <link rel="stylesheet" href="styles.css?v=205" />
   </head>
   <body>
     <header class="site-header" id="site-header">
@@ -57,7 +57,7 @@
                       <span class="nav-dropdown-title">Our Story</span>
                     </span>
                   </a>
-                  <a class="nav-dropdown-link" href="about.html#about-cta-heading">
+                  <a class="nav-dropdown-link" href="contact.html">
                     <span class="nav-dropdown-icon" aria-hidden="true">
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
                         <path d="M8 7h8v10H8z" stroke-linejoin="round" />
@@ -137,209 +137,503 @@
     </header>
 
     <main>
-      <section class="hero" id="top">
+      <section class="hero" id="top" data-hero-video-bg>
+        <div class="hero-video-stack" aria-hidden="true">
+          <video
+            class="hero-bg-video"
+            muted
+            playsinline
+            disablepictureinpicture
+            disableremoteplayback
+            loop
+            preload="metadata"
+            poster="assets/hero-final.png?v=32"
+          >
+            <source src="assets/hero-video.mp4?v=2" type="video/mp4" />
+          </video>
+          <div class="hero-video-scrim"></div>
+        </div>
         <div class="hero-inner">
           <div class="hero-copy">
-            <h1 class="hero-title reveal">AI-Powered Platform Revolutionizing Solar</h1>
-            <p class="hero-sub reveal">
-              Autonomous AI Agents for Operations &amp; Maintenance in utility-scale solar plants
+            <h1 class="hero-title reveal">
+              <span class="hero-title-line">Always ON</span>
+              <span class="hero-title-line">Field Intelligence</span>
+            </h1>
+            <p class="hero-sub">
+              Physical AI Agents for Operations &amp; Maintenance in Solar
             </p>
           </div>
-          <div class="hero-stats" role="list">
-            <div class="hero-stat reveal" role="listitem">
-              <span class="hero-stat-icon" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M18.5 5.5a9 9 0 0 1 1.2 2.1M4.3 16.4A9 9 0 0 1 3 12" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="hero-stat-text">30% Downtime Avoided</span>
-            </div>
-            <div class="hero-stat-divider" aria-hidden="true"></div>
-            <div class="hero-stat reveal" role="listitem">
-              <span class="hero-stat-icon" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M4 17h16l-2-6H6l-2 6Z" stroke-linejoin="round" />
-                  <path d="M7 11V8h10v3" stroke-linecap="round" stroke-linejoin="round" />
-                  <circle cx="8" cy="17" r="1.5" fill="currentColor" />
-                  <circle cx="16" cy="17" r="1.5" fill="currentColor" />
-                  <path d="M9 8 7 4M15 8l2-4" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="hero-stat-text">All Terrain</span>
-            </div>
-            <div class="hero-stat-divider" aria-hidden="true"></div>
-            <div class="hero-stat reveal" role="listitem">
-              <span class="hero-stat-icon" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 3 4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-4Z" stroke-linejoin="round" />
-                  <path
-                    d="M12 8v2.5l2 1.2-2 1.3V15l-3.2-2.2 2-1.1-1.8-1.1L12 8Z"
-                    fill="currentColor"
-                    stroke="none"
-                  />
-                </svg>
-              </span>
-              <span class="hero-stat-text">24/7 Loss Prevention</span>
+        </div>
+      </section>
+
+      <section class="om-assistant" id="om-assistant" aria-labelledby="om-assistant-heading">
+        <div
+          class="om-assistant-scroll"
+          id="om-assistant-scroll"
+          data-chat-steps="3"
+          data-carousel-steps="2"
+          data-future-steps="3"
+          data-vh-per-step="1.5"
+          data-hold-vh="3"
+        >
+          <span id="technology" class="om-assistant-scroll-anchor" aria-hidden="true"></span>
+          <div class="om-assistant-sticky">
+            <div class="om-assistant-carousel" id="om-assistant-carousel">
+              <div class="om-assistant-panel om-assistant-panel--chat">
+                <div class="om-assistant-inner">
+                  <h2 id="om-assistant-heading" class="om-assistant-title reveal">
+                    Your Personalized O&amp;M Assistant
+                  </h2>
+                  <div class="om-chat" role="region" aria-label="Photon AI assistant conversation demo">
+                <header class="om-chat-header">
+                  <div class="om-chat-header-start">
+                    <span class="om-chat-wand" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="m9.5 14.5 1 1M7.5 5.5l1 1M5 8l1 1M14 3l1 1M3 14l1 1" stroke-linecap="round" />
+                        <path d="m10 8 6 6M8.5 9.5 15 16" stroke-linecap="round" />
+                        <path d="m4 20 2-2M18 6l2-2" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="om-chat-welcome">Welcome back, Drew!</span>
+                  </div>
+                  <div class="om-chat-header-end">
+                    <span class="om-chat-status" aria-hidden="true"></span>
+                    <span class="om-chat-product">Photon AI Assistant</span>
+                    <span class="om-chat-close" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                  </div>
+                </header>
+
+                <div class="om-chat-body">
+                  <div class="om-chat-messages" id="om-chat-messages">
+                    <div class="om-chat-turn om-chat-turn--bot" data-chat-step="0">
+                      <span class="om-chat-avatar om-chat-avatar--bot" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <rect x="5" y="8" width="14" height="10" rx="2" />
+                          <circle cx="9.5" cy="12" r="1" fill="currentColor" stroke="none" />
+                          <circle cx="14.5" cy="12" r="1" fill="currentColor" stroke="none" />
+                          <path d="M9 5h6M12 5V8" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <div class="om-chat-bubble om-chat-bubble--bot">
+                        <p>
+                          <span class="om-chat-typed" data-typed-text="Hello, I'm Photon, your AI O&amp;M assistant. How can I help you today?"></span><span class="om-chat-caret" aria-hidden="true"></span>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="om-chat-turn om-chat-turn--user" data-chat-step="1">
+                      <div class="om-chat-bubble om-chat-bubble--user">
+                        <p>
+                          <span class="om-chat-typed" data-typed-text="Hey Photon, can you send a robot to scan Inverter Block 4?"></span><span class="om-chat-caret" aria-hidden="true"></span>
+                        </p>
+                      </div>
+                      <span class="om-chat-avatar om-chat-avatar--user" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <circle cx="12" cy="8" r="3.5" />
+                          <path d="M5.5 19c.6-3 3.2-5 6.5-5s5.9 2 6.5 5" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                    </div>
+
+                    <div class="om-chat-turn om-chat-turn--bot om-chat-turn--tool" data-chat-step="2">
+                      <span class="om-chat-avatar om-chat-avatar--bot" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <rect x="5" y="8" width="14" height="10" rx="2" />
+                          <circle cx="9.5" cy="12" r="1" fill="currentColor" stroke="none" />
+                          <circle cx="14.5" cy="12" r="1" fill="currentColor" stroke="none" />
+                          <path d="M9 5h6M12 5V8" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <div class="om-chat-tool-card">
+                        <p class="om-chat-tool-call">
+                          Calling tool: <code>deploy_mission</code>
+                        </p>
+                        <div class="om-chat-tool-progress" aria-hidden="true"><span></span></div>
+                        <p class="om-chat-tool-status">executing...</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <footer class="om-chat-footer">
+                  <div class="om-chat-input" aria-hidden="true">
+                    <span class="om-chat-input-placeholder">Ask AI or Search Anything</span>
+                    <span class="om-chat-input-actions">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M8.5 11.5 14 6c1.7-1.7 4.3-1.7 6 0s1.7 4.3 0 6l-7 7c-2.4 2.4-6.2 2.4-8.6 0s-2.4-6.2 0-8.6l7.5-7.5" stroke-linecap="round" />
+                      </svg>
+                      <span class="om-chat-send">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </footer>
+              </div>
+                </div>
+              </div>
+
+              <div class="om-assistant-panel om-assistant-panel--autonomous" aria-labelledby="om-autonomous-heading">
+                <div class="om-assistant-video-stack" aria-hidden="true">
+                  <video
+                    class="om-assistant-bg-video"
+                    muted
+                    playsinline
+                    disablepictureinpicture
+                    disableremoteplayback
+                    loop
+                    preload="metadata"
+                  >
+                    <source src="assets/transition.mp4?v=2" type="video/mp4" />
+                  </video>
+                  <div class="om-assistant-video-scrim"></div>
+                </div>
+                <div class="om-assistant-autonomous-inner">
+                  <div class="om-assistant-autonomous-copy">
+                    <h2 id="om-autonomous-heading" class="om-autonomous-title">
+                      Fully Autonomous. Always On.
+                    </h2>
+                    <ul class="om-autonomous-features">
+                      <li>
+                        <span class="feature-icon" aria-hidden="true">
+                          <img
+                            src="assets/om-icon-sensors.png?v=1"
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </span>
+                        <div class="feature-body">
+                          <h3>Multi-modal sensors</h3>
+                          <p>
+                            Radiometric thermal, RGB, and LiDAR scans for component-level defects
+                          </p>
+                        </div>
+                      </li>
+                      <li>
+                        <span class="feature-icon" aria-hidden="true">
+                          <img
+                            src="assets/om-icon-autonomous.png?v=1"
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </span>
+                        <div class="feature-body">
+                          <h3>Fully autonomous</h3>
+                          <p>
+                            On-robot intelligence for terrain handling and obstacle avoidance.
+                          </p>
+                        </div>
+                      </li>
+                      <li>
+                        <span class="feature-icon" aria-hidden="true">
+                          <img
+                            src="assets/om-icon-ruggedized.png?v=1"
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </span>
+                        <div class="feature-body">
+                          <h3>Ruggedized &amp; all-weather</h3>
+                          <p>
+                            Built to survive harsh field conditions across geographies
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="om-assistant-panel om-assistant-panel--future">
+                <div class="section-future-inner">
+                  <div
+                    class="future-visual future-visual-stack reveal reveal--media"
+                    id="future-visual-stack"
+                    aria-label="Product screenshots"
+                  >
+                    <img
+                      class="future-visual-slide is-active"
+                      src="assets/future-maintenance-1.png"
+                      alt="Site hierarchy map with solar farm satellite view and anomaly markers"
+                      width="1024"
+                      height="621"
+                      loading="lazy"
+                      decoding="async"
+                      data-slide-index="0"
+                      aria-hidden="false"
+                    />
+                    <img
+                      class="future-visual-slide"
+                      src="assets/future-maintenance-2.png"
+                      alt="Solar block string map with maintenance status overlays"
+                      width="1024"
+                      height="621"
+                      loading="lazy"
+                      decoding="async"
+                      data-slide-index="1"
+                      aria-hidden="true"
+                    />
+                    <img
+                      class="future-visual-slide"
+                      src="assets/future-maintenance-3.png"
+                      alt="Anomaly details dashboard with thermal view and rover metadata"
+                      width="1024"
+                      height="621"
+                      loading="lazy"
+                      decoding="async"
+                      data-slide-index="2"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div class="future-copy">
+                    <h2 class="reveal">The future of solar maintenance</h2>
+                    <ul class="feature-list feature-list--compact future-copy-bullets" id="future-copy-bullets">
+                      <li class="future-copy-step is-visible" data-future-step="0">
+                        <span class="feature-icon" aria-hidden="true">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="4.5" y="4.5" width="15" height="15" rx="2" />
+                            <path
+                              d="M12.5 7 9 13.5h2.8L10.8 19 16 11h-2.7l-.8-4Z"
+                              fill="currentColor"
+                              stroke="none"
+                            />
+                          </svg>
+                        </span>
+                        <div class="feature-body">
+                          <h3>Digital Geotag Anomalies</h3>
+                          <p>
+                            Our user platform streamlines the process by providing intuitive tools for visualizing anomalies,
+                            identifying risk factors, and easily monitoring robot activity in real-time.
+                          </p>
+                        </div>
+                      </li>
+                      <li class="future-copy-step" data-future-step="1">
+                        <span class="feature-icon" aria-hidden="true">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14" stroke-linecap="round" />
+                            <path d="M8 9 5 12l3 3M16 15l3-3-3-3" stroke-linecap="round" stroke-linejoin="round" />
+                          </svg>
+                        </span>
+                        <div class="feature-body">
+                          <h3>Live Robot Command &amp; Control</h3>
+                          <p>
+                            Aonics Rovers autonomously learn and navigate your entire solar farm, performing inspections with
+                            precision and care.
+                          </p>
+                        </div>
+                      </li>
+                      <li class="future-copy-step" data-future-step="2">
+                        <span class="feature-icon" aria-hidden="true">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 4 20 18H4L12 4Z" stroke-linejoin="round" />
+                            <path d="M12 9v5M12 16h.01" stroke-linecap="round" />
+                          </svg>
+                        </span>
+                        <div class="feature-body">
+                          <h3>Fully Autonomous First Responder</h3>
+                          <p>
+                            When needed, operators can take remotely operate the robot from anywhere in the world for targeted,
+                            on-demand inspections.
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-om" id="about">
-        <div class="section-om-inner">
-          <h2 class="reveal">Your Personalized O&amp;M Assistant</h2>
-          <ul class="feature-list">
-            <li class="reveal">
-              <span class="feature-icon" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="4.5" y="4.5" width="15" height="15" rx="2" />
-                  <path
-                    d="M12.5 7 9 13.5h2.8L10.8 19 16 11h-2.7l-.8-4Z"
-                    fill="currentColor"
-                    stroke="none"
-                  />
-                </svg>
-              </span>
-              <div class="feature-body">
-                <h3>Digital Geotag Anomalies</h3>
-                <p>
-                  Our user platform streamlines the process by providing intuitive tools for visualizing anomalies,
-                  identifying risk factors, and easily monitoring robot activity in real-time.
-                </p>
-              </div>
-            </li>
-            <li class="reveal">
-              <span class="feature-icon" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M5 12h14" stroke-linecap="round" />
-                  <path d="M8 9 5 12l3 3M16 15l3-3-3-3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-              <div class="feature-body">
-                <h3>Live Robot Command &amp; Control</h3>
-                <p>
-                  Aonics Rovers autonomously learn and navigate your entire solar farm, performing inspections with
-                  precision and care.
-                </p>
-              </div>
-            </li>
-            <li class="reveal">
-              <span class="feature-icon" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 4 20 18H4L12 4Z" stroke-linejoin="round" />
-                  <path d="M12 9v5M12 16h.01" stroke-linecap="round" />
-                </svg>
-              </span>
-              <div class="feature-body">
-                <h3>Fully Autonomous First Responder</h3>
-                <p>
-                  When needed, operators can take remotely operate the robot from anywhere in the world for targeted,
-                  on-demand inspections.
-                </p>
-              </div>
-            </li>
-          </ul>
+      <section class="deployed-units" id="deployed-units" aria-labelledby="deployed-units-heading">
+        <div id="deployed-units-host" class="deployed-units-host" data-deployed-steps="5">
+          <div class="deployed-units-sticky">
+            <h2 id="deployed-units-heading" class="deployed-units-title">Deployed units</h2>
+            <div class="deployed-units-map-stage">
+              <figure class="deployed-units-map">
+                <img
+                  class="deployed-units-map-img"
+                  src="assets/world-map.svg?v=3"
+                  alt="World map showing deployment locations"
+                  width="2754"
+                  height="1398"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <ul class="deployed-units-pins" role="list" aria-label="Deployment locations">
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 16.4%; --pin-y: 29.4%"
+                    data-label-order="bottom,top"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">California</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 18.9%; --pin-y: 27.4%"
+                    data-label-order="top,bottom"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Utah</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 20.8%; --pin-y: 27.9%"
+                    data-label-order="top,bottom"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Colorado</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 20.4%; --pin-y: 32.8%"
+                    data-label-order="bottom,top"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Texas</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 27.2%; --pin-y: 30.1%; --label-gap: 0.1rem"
+                    data-label-order="bottom,top"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">North Carolina</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 25.7%; --pin-y: 26.7%"
+                    data-label-order="top,bottom"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Illinois</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 46.0%; --pin-y: 24.0%"
+                    data-label-order="bottom,top"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Spain</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 50.4%; --pin-y: 20.2%"
+                    data-label-order="top,bottom"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Germany</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 67.2%; --pin-y: 39.4%"
+                    data-label-order="bottom,top"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Maharashtra</span>
+                  </li>
+                  <li
+                    class="deployed-units-pin"
+                    style="--pin-x: 66.1%; --pin-y: 35.1%"
+                    data-label-order="top,bottom"
+                    aria-hidden="true"
+                  >
+                    <span class="deployed-units-pin-marker" aria-hidden="true"></span>
+                    <span class="deployed-units-pin-label">Rajasthan</span>
+                  </li>
+                </ul>
+              </figure>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="section-future" id="technology">
-        <div class="section-future-scroll" id="future-scroll-drive">
-          <div class="section-future-sticky">
-            <div class="section-future-inner">
-              <div
-                class="future-visual future-visual-stack reveal reveal--media"
-                id="future-visual-stack"
-                aria-label="Product screenshots"
-              >
-                <img
-                  class="future-visual-slide is-active"
-                  src="assets/future-maintenance-1.png"
-                  alt="Site hierarchy map with solar farm satellite view and anomaly markers"
-                  width="1024"
-                  height="621"
-                  loading="lazy"
-                  decoding="async"
-                  data-slide-index="0"
-                  aria-hidden="false"
-                />
-                <img
-                  class="future-visual-slide"
-                  src="assets/future-maintenance-2.png"
-                  alt="Solar block string map with maintenance status overlays"
-                  width="1024"
-                  height="621"
-                  loading="lazy"
-                  decoding="async"
-                  data-slide-index="1"
-                  aria-hidden="true"
-                />
-                <img
-                  class="future-visual-slide"
-                  src="assets/future-maintenance-3.png"
-                  alt="Anomaly details dashboard with thermal view and rover metadata"
-                  width="1024"
-                  height="621"
-                  loading="lazy"
-                  decoding="async"
-                  data-slide-index="2"
-                  aria-hidden="true"
-                />
+      <section class="home-team" aria-labelledby="home-team-heading">
+        <div class="home-team-gradient" aria-hidden="true">
+          <div class="home-team-gradient-base"></div>
+          <div class="home-team-gradient-wash"></div>
+          <div class="home-team-gradient-glow"></div>
+          <div class="home-team-gradient-scrim"></div>
+        </div>
+        <div class="home-team-inner">
+          <div class="home-team-top">
+            <div class="home-team-copy">
+              <h2 id="home-team-heading" class="reveal">
+                Building Physical AI to Enable Real-World Breakthroughs.
+              </h2>
+              <a class="btn btn-ghost nav-demo-btn nav-cta reveal" href="contact.html">Join Us</a>
+            </div>
+            <div class="home-team-desc reveal">
+              <p>
+                Aonics is redefining what&rsquo;s possible in utility-scale solar operations and maintenance. The company
+                was founded by leaders from robotics, energy, and AI&mdash;with experience at institutions and companies
+                shaping the next generation of field intelligence.
+              </p>
+            </div>
+          </div>
+
+          <div class="home-team-background">
+            <div class="home-team-carousel" aria-label="Team background logos">
+              <div class="home-team-carousel-row">
+                <div class="home-team-carousel-track">
+                  <ul class="home-team-logo-set">
+                    <li><img src="assets/team-logos/mit.svg?v=3" alt="MIT" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/google.svg?v=3" alt="Google" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/ucla.svg" alt="UCLA" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/uc-berkeley.svg?v=2" alt="UC Berkeley" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/intrinsic.svg" alt="Intrinsic" loading="lazy" decoding="async" /></li>
+                  </ul>
+                  <ul class="home-team-logo-set" aria-hidden="true">
+                    <li><img src="assets/team-logos/mit.svg?v=3" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/google.svg?v=3" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/ucla.svg" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/uc-berkeley.svg?v=2" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/intrinsic.svg" alt="" loading="lazy" decoding="async" /></li>
+                  </ul>
+                </div>
               </div>
-              <div class="future-copy">
-                <h2 class="reveal">The future of solar maintenance</h2>
-                <ul class="feature-list feature-list--compact future-copy-bullets" id="future-copy-bullets">
-                  <li class="future-copy-step is-visible" data-future-step="0">
-                    <span class="feature-icon" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <rect x="4.5" y="4.5" width="15" height="15" rx="2" />
-                        <path
-                          d="M12.5 7 9 13.5h2.8L10.8 19 16 11h-2.7l-.8-4Z"
-                          fill="currentColor"
-                          stroke="none"
-                        />
-                      </svg>
-                    </span>
-                    <div class="feature-body">
-                      <h3>Digital Geotag Anomalies</h3>
-                      <p>
-                        Our user platform streamlines the process by providing intuitive tools for visualizing anomalies,
-                        identifying risk factors, and easily monitoring robot activity in real-time.
-                      </p>
-                    </div>
-                  </li>
-                  <li class="future-copy-step" data-future-step="1">
-                    <span class="feature-icon" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M5 12h14" stroke-linecap="round" />
-                        <path d="M8 9 5 12l3 3M16 15l3-3-3-3" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </span>
-                    <div class="feature-body">
-                      <h3>Live Robot Command &amp; Control</h3>
-                      <p>
-                        Aonics Rovers autonomously learn and navigate your entire solar farm, performing inspections with
-                        precision and care.
-                      </p>
-                    </div>
-                  </li>
-                  <li class="future-copy-step" data-future-step="2">
-                    <span class="feature-icon" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M12 4 20 18H4L12 4Z" stroke-linejoin="round" />
-                        <path d="M12 9v5M12 16h.01" stroke-linecap="round" />
-                      </svg>
-                    </span>
-                    <div class="feature-body">
-                      <h3>Fully Autonomous First Responder</h3>
-                      <p>
-                        When needed, operators can take remotely operate the robot from anywhere in the world for targeted,
-                        on-demand inspections.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
+              <div class="home-team-carousel-row">
+                <div class="home-team-carousel-track home-team-carousel-track--reverse">
+                  <ul class="home-team-logo-set">
+                    <li><img src="assets/team-logos/amazon.svg?v=3" alt="Amazon" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/irobot.svg" alt="iRobot" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/uiuc.svg" alt="UIUC" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/usc-white.svg?v=1" alt="USC" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/samsung.svg?v=3" alt="Samsung" loading="lazy" decoding="async" /></li>
+                  </ul>
+                  <ul class="home-team-logo-set" aria-hidden="true">
+                    <li><img src="assets/team-logos/amazon.svg?v=3" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/irobot.svg" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/uiuc.svg" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/usc-white.svg?v=1" alt="" loading="lazy" decoding="async" /></li>
+                    <li><img src="assets/team-logos/samsung.svg?v=3" alt="" loading="lazy" decoding="async" /></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -523,67 +817,71 @@
 
       (function () {
         try {
-          var drive = document.getElementById("future-scroll-drive");
-          if (!drive) return;
-          var slides = drive.querySelectorAll(".future-visual-slide");
-          var bullets = drive.querySelectorAll(".future-copy-step");
-          var bulletRoot = document.getElementById("future-copy-bullets");
-          if (!slides.length) return;
-          var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+          var root = document.querySelector(".hero[data-hero-video-bg]");
+          var v = root && root.querySelector(".hero-bg-video");
+          if (!root || !v) return;
 
-          function setSlideIndex(index) {
-            slides.forEach(function (el, j) {
-              var on = j === index;
-              el.classList.toggle("is-active", on);
-              el.setAttribute("aria-hidden", on ? "false" : "true");
-            });
+          var reduceMq =
+            typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+
+          function isReduced() {
+            return reduceMq && reduceMq.matches;
           }
 
-          function setBulletCumulative(index) {
-            bullets.forEach(function (li, j) {
-              li.classList.toggle("is-visible", j <= index);
-            });
+          function heroIntersectsViewport() {
+            var r = root.getBoundingClientRect();
+            return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight || 0);
           }
 
-          function onScroll() {
-            if (reduceMotion.matches) {
-              setSlideIndex(0);
-              bullets.forEach(function (li) {
-                li.classList.add("is-visible");
+          function setPlaying(play) {
+            if (isReduced()) return;
+            if (play) {
+              var p = v.play();
+              if (p && typeof p.catch === "function") p.catch(function () {});
+            } else {
+              v.pause();
+            }
+          }
+
+          if (!window.IntersectionObserver) {
+            setPlaying(heroIntersectsViewport());
+            document.addEventListener("visibilitychange", function () {
+              if (document.hidden) v.pause();
+              else setPlaying(heroIntersectsViewport());
+            });
+            return;
+          }
+
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                setPlaying(entry.isIntersecting);
               });
-              if (bulletRoot) bulletRoot.classList.add("future-copy-bullets--motion-reduced");
-              return;
-            }
-            if (bulletRoot) bulletRoot.classList.remove("future-copy-bullets--motion-reduced");
+            },
+            { root: null, threshold: 0.06, rootMargin: "0px" }
+          );
 
-            var rect = drive.getBoundingClientRect();
-            var range = drive.offsetHeight - window.innerHeight;
-            if (range < 1) {
-              setSlideIndex(0);
-              setBulletCumulative(0);
-              return;
-            }
-            var t = -rect.top / range;
-            if (t < 0) t = 0;
-            if (t > 1) t = 1;
-            var idx = 0;
-            if (t >= 2 / 3) idx = 2;
-            else if (t >= 1 / 3) idx = 1;
-            setSlideIndex(idx);
-            setBulletCumulative(idx);
+          io.observe(root);
+
+          if (reduceMq && typeof reduceMq.addEventListener === "function") {
+            reduceMq.addEventListener("change", function () {
+              if (isReduced()) v.pause();
+            });
           }
 
-          window.addEventListener("scroll", onScroll, { passive: true });
-          window.addEventListener("resize", onScroll);
-          if (typeof reduceMotion.addEventListener === "function") {
-            reduceMotion.addEventListener("change", onScroll);
-          } else if (typeof reduceMotion.addListener === "function") {
-            reduceMotion.addListener(onScroll);
-          }
-          onScroll();
+          document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+              v.pause();
+            } else if (!isReduced() && heroIntersectsViewport()) {
+              setPlaying(true);
+            }
+          });
         } catch (e) {}
       })();
     </script>
     <script src="site-header.js"></script>
+    <script src="deployed-units-map.js?v=12"></script>
+    <script src="home-team-gradient.js?v=2"></script>
+    <script src="om-assistant-chat.js?v=4"></script>
   </body>
 </html>
