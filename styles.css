@@ -1591,6 +1591,36 @@ html.js .future-copy-bullets > .future-copy-step.is-highlighted {
   top: 0;
 }
 
+/* Mobile homepage — section pauses, no overlapping sticky glitches */
+@media (max-width: 767px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  .hero,
+  .om-assistant,
+  .deployed-units,
+  .home-team-pin {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .home-team-pin .home-team {
+    position: relative;
+    top: auto;
+  }
+
+  .om-assistant-sticky,
+  .deployed-units-sticky {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
 .home-team {
   position: relative;
   overflow: hidden;

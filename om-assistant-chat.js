@@ -1,5 +1,6 @@
 /**
  * O&M Assistant demo — scroll-driven chat, carousel, and future maintenance slide.
+ * Mobile (≤767px): discrete panel segments with reveal + hold per slide.
  */
 (function () {
   try {
@@ -14,42 +15,98 @@
     if (!steps.length || !carousel) return;
 
     var chatSteps = steps.length;
-    var carouselSteps = parseInt(scrollHost.getAttribute("data-carousel-steps") || "2", 10);
-    var carouselHoldVh = parseFloat(scrollHost.getAttribute("data-carousel-hold-vh") || "0", 10);
-    var futureSteps = parseFloat(scrollHost.getAttribute("data-future-steps") || "1.25", 10);
-    var vhPerStep = parseFloat(scrollHost.getAttribute("data-vh-per-step") || "1.5", 10);
-    var holdVh = parseFloat(scrollHost.getAttribute("data-hold-vh") || "3", 10);
-    var scrollAnchor = scrollHost.querySelector(".om-assistant-scroll-anchor");
     var panelCount = 3;
-    if (!carouselSteps || carouselSteps < 1) carouselSteps = panelCount - 1;
-    if (!futureSteps || futureSteps < 1) futureSteps = 3;
-    if (!vhPerStep || vhPerStep < 1) vhPerStep = 1;
-    if (!holdVh || holdVh < 0) holdVh = 0;
-    if (!carouselHoldVh || carouselHoldVh < 0) carouselHoldVh = 0;
-    var carouselVh = carouselSteps * vhPerStep + carouselHoldVh;
-    var contentVh = chatSteps * vhPerStep + carouselVh + futureSteps * vhPerStep;
-    var scrollVh = contentVh + holdVh;
+    var scrollAnchor = scrollHost.querySelector(".om-assistant-scroll-anchor");
 
+    var mobileMq =
+      typeof window.matchMedia === "function" ? window.matchMedia("(max-width: 767px)") : null;
     var reduceMq =
       typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+
+    var scrollModel = null;
+
+    function isMobile() {
+      return mobileMq && mobileMq.matches;
+    }
 
     function isReduced() {
       return reduceMq && reduceMq.matches;
     }
 
+    function numAttr(name, fallback) {
+      var value = parseFloat(scrollHost.getAttribute(name) || String(fallback), 10);
+      return isNaN(value) ? fallback : value;
+    }
+
+    function rebuildScrollModel() {
+      if (isMobile()) {
+        var panelVh = numAttr("data-mobile-panel-vh", 1.9);
+        var exitHoldVh = numAttr("data-mobile-exit-hold-vh", 0.85);
+        var revealRatio = numAttr("data-mobile-panel-reveal-ratio", 0.52);
+        if (panelVh < 0.75) panelVh = 1.9;
+        if (exitHoldVh < 0) exitHoldVh = 0.85;
+        if (revealRatio <= 0.1 || revealRatio >= 0.9) revealRatio = 0.52;
+
+        return {
+          mobileMode: true,
+          scrollVh: panelCount * panelVh + exitHoldVh,
+          panelVh: panelVh,
+          exitHoldVh: exitHoldVh,
+          revealRatio: revealRatio,
+        };
+      }
+
+      var carouselSteps = parseInt(scrollHost.getAttribute("data-carousel-steps") || "2", 10);
+      var carouselHoldVh = parseFloat(scrollHost.getAttribute("data-carousel-hold-vh") || "0", 10);
+      var futureSteps = parseFloat(scrollHost.getAttribute("data-future-steps") || "1.25", 10);
+      var vhPerStep = parseFloat(scrollHost.getAttribute("data-vh-per-step") || "1.5", 10);
+      var holdVh = parseFloat(scrollHost.getAttribute("data-hold-vh") || "3", 10);
+      if (!carouselSteps || carouselSteps < 1) carouselSteps = panelCount - 1;
+      if (!futureSteps || futureSteps < 1) futureSteps = 3;
+      if (!vhPerStep || vhPerStep < 1) vhPerStep = 1;
+      if (!holdVh || holdVh < 0) holdVh = 0;
+      if (!carouselHoldVh || carouselHoldVh < 0) carouselHoldVh = 0;
+
+      var carouselVh = carouselSteps * vhPerStep + carouselHoldVh;
+      var contentVh = chatSteps * vhPerStep + carouselVh + futureSteps * vhPerStep;
+
+      return {
+        mobileMode: false,
+        scrollVh: contentVh + holdVh,
+        contentVh: contentVh,
+        chatSteps: chatSteps,
+        vhPerStep: vhPerStep,
+        carouselVh: carouselVh,
+        carouselHoldVh: carouselHoldVh,
+        futureSteps: futureSteps,
+        holdVh: holdVh,
+      };
+    }
+
     function syncHostHeight() {
+      scrollModel = rebuildScrollModel();
+
       if (isReduced()) {
         scrollHost.style.height = "";
         scrollHost.classList.add("om-assistant-scroll--reduced");
+        scrollHost.classList.remove("om-assistant-scroll--mobile");
         if (scrollAnchor) scrollAnchor.style.setProperty("--om-scroll-anchor-top", "0%");
         return;
       }
+
       scrollHost.classList.remove("om-assistant-scroll--reduced");
+      scrollHost.classList.toggle("om-assistant-scroll--mobile", scrollModel.mobileMode);
+
       var h = window.innerHeight || document.documentElement.clientHeight || 600;
-      scrollHost.style.height = Math.ceil(h * scrollVh) + "px";
-      if (scrollAnchor && scrollVh > 0) {
-        var futureStartPct = ((chatSteps * vhPerStep + carouselVh) / scrollVh) * 100;
+      scrollHost.style.height = Math.ceil(h * scrollModel.scrollVh) + "px";
+
+      if (scrollAnchor && scrollModel.scrollVh > 0 && !scrollModel.mobileMode) {
+        var futureStartPct =
+          ((scrollModel.chatSteps * scrollModel.vhPerStep + scrollModel.carouselVh) / scrollModel.scrollVh) * 100;
         scrollAnchor.style.setProperty("--om-scroll-anchor-top", futureStartPct + "%");
+      } else if (scrollAnchor && scrollModel.mobileMode) {
+        var mobileFuturePct = ((scrollModel.panelVh * 2) / scrollModel.scrollVh) * 100;
+        scrollAnchor.style.setProperty("--om-scroll-anchor-top", mobileFuturePct + "%");
       }
     }
 
@@ -78,18 +135,23 @@
     }
 
     function panelContentT(panelIndex) {
-      var chatPortion = (chatSteps * vhPerStep) / contentVh;
-      var carouselPortion = carouselVh / contentVh;
-      var futurePortion = (futureSteps * vhPerStep) / contentVh;
+      if (!scrollModel || scrollModel.mobileMode) {
+        var panelFraction = scrollModel.panelVh / scrollModel.scrollVh;
+        return panelIndex * panelFraction + panelFraction * 0.3;
+      }
+
+      var contentVh = scrollModel.contentVh;
+      var chatPortion = (scrollModel.chatSteps * scrollModel.vhPerStep) / contentVh;
+      var carouselPortion = scrollModel.carouselVh / contentVh;
+      var futurePortion = (scrollModel.futureSteps * scrollModel.vhPerStep) / contentVh;
       var carouselEnd = chatPortion + carouselPortion;
 
-      if (panelIndex === 0) {
-        return chatPortion * 0.2;
-      }
+      if (panelIndex === 0) return chatPortion * 0.2;
       if (panelIndex === 1) {
-        var transVh = vhPerStep;
-        var trans1End = carouselVh > 0 ? transVh / carouselVh : 0;
-        var holdEnd = carouselVh > 0 ? (transVh + carouselHoldVh) / carouselVh : 0.5;
+        var transVh = scrollModel.vhPerStep;
+        var trans1End = scrollModel.carouselVh > 0 ? transVh / scrollModel.carouselVh : 0;
+        var holdEnd =
+          scrollModel.carouselVh > 0 ? (transVh + scrollModel.carouselHoldVh) / scrollModel.carouselVh : 0.5;
         var carouselT = (trans1End + holdEnd) / 2;
         return chatPortion + carouselPortion * carouselT;
       }
@@ -100,11 +162,8 @@
       dots.forEach(function (dot, index) {
         var on = index === panelIndex;
         dot.classList.toggle("is-active", on);
-        if (on) {
-          dot.setAttribute("aria-current", "true");
-        } else {
-          dot.removeAttribute("aria-current");
-        }
+        if (on) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
       });
     }
 
@@ -137,18 +196,23 @@
         return;
       }
 
-      var contentEnd = contentVh / scrollVh;
-      var targetContentT = panelContentT(panelIndex);
-      var targetT = targetContentT * contentEnd;
       var range = scrollHost.offsetHeight - window.innerHeight;
       if (range < 1) {
         applyPanelState(panelIndex);
         return;
       }
 
+      var targetT;
+      if (scrollModel.mobileMode) {
+        var panelFraction = scrollModel.panelVh / scrollModel.scrollVh;
+        targetT = panelIndex * panelFraction + panelFraction * 0.28;
+      } else {
+        var contentEnd = scrollModel.contentVh / scrollModel.scrollVh;
+        targetT = panelContentT(panelIndex) * contentEnd;
+      }
+
       var top = scrollHost.getBoundingClientRect().top + window.scrollY;
-      var y = top + targetT * range;
-      window.scrollTo({ top: y, behavior: "smooth" });
+      window.scrollTo({ top: top + targetT * range, behavior: "smooth" });
     }
 
     function setFutureSlideIndex(index) {
@@ -226,27 +290,25 @@
         step.classList.toggle("is-typing", typing);
 
         var bar = step.querySelector(".om-chat-tool-progress span");
-        if (bar) {
-          bar.style.width = active ? stepT * 100 + "%" : "0%";
-        }
+        if (bar) bar.style.width = active ? stepT * 100 + "%" : "0%";
       });
     }
 
     function carouselPositionFromT(carouselT) {
-      if (carouselHoldVh <= 0 || carouselVh <= 0) {
+      if (!scrollModel || scrollModel.mobileMode) return carouselT * (panelCount - 1);
+
+      if (scrollModel.carouselHoldVh <= 0 || scrollModel.carouselVh <= 0) {
         return carouselT * (panelCount - 1);
       }
 
-      var transVh = vhPerStep;
-      var trans1End = transVh / carouselVh;
-      var holdEnd = (transVh + carouselHoldVh) / carouselVh;
+      var transVh = scrollModel.vhPerStep;
+      var trans1End = transVh / scrollModel.carouselVh;
+      var holdEnd = (transVh + scrollModel.carouselHoldVh) / scrollModel.carouselVh;
 
       if (carouselT <= trans1End) {
         return trans1End > 0 ? carouselT / trans1End : 1;
       }
-      if (carouselT <= holdEnd) {
-        return 1;
-      }
+      if (carouselT <= holdEnd) return 1;
 
       var t2 = holdEnd < 1 ? (carouselT - holdEnd) / (1 - holdEnd) : 1;
       return 1 + t2;
@@ -260,18 +322,55 @@
       setFutureBulletHighlight(idx);
     }
 
-    function onScroll() {
-      if (isReduced()) {
-        applyReducedState();
+    function onScrollMobile(t) {
+      var panelFraction = scrollModel.panelVh / scrollModel.scrollVh;
+      var panelIndex = Math.min(panelCount - 1, Math.floor(t / panelFraction));
+      var localT = panelFraction > 0 ? (t - panelIndex * panelFraction) / panelFraction : 0;
+      localT = clamp(localT, 0, 1);
+
+      var revealEnd = scrollModel.revealRatio;
+      var revealT = clamp(localT / revealEnd, 0, 1);
+
+      if (panelIndex === 0) {
+        applyChatProgress(revealT);
+        carousel.style.setProperty("--carousel-position", "0");
+        setFutureSlideIndex(0);
+        setFutureBulletHighlight(0);
+        updateDots(0);
         return;
       }
 
-      var t = scrollProgress();
-      var contentEnd = contentVh / scrollVh;
+      if (panelIndex === 1) {
+        applyChatProgress(1);
+        carousel.style.setProperty(
+          "--carousel-position",
+          String(localT < revealEnd ? revealT : 1)
+        );
+        setFutureSlideIndex(0);
+        setFutureBulletHighlight(0);
+        updateDots(1);
+        return;
+      }
+
+      applyChatProgress(1);
+      if (localT < revealEnd) {
+        carousel.style.setProperty("--carousel-position", String(1 + revealT));
+        setFutureSlideIndex(0);
+        setFutureBulletHighlight(0);
+      } else {
+        carousel.style.setProperty("--carousel-position", "2");
+        var futureT = (localT - revealEnd) / (1 - revealEnd);
+        applyFutureProgress(clamp(futureT, 0, 1));
+      }
+      updateDots(2);
+    }
+
+    function onScrollDesktop(t) {
+      var contentEnd = scrollModel.contentVh / scrollModel.scrollVh;
       var contentT = contentEnd > 0 ? clamp(t / contentEnd, 0, 1) : 0;
-      var chatPortion = (chatSteps * vhPerStep) / contentVh;
-      var carouselPortion = carouselVh / contentVh;
-      var futurePortion = (futureSteps * vhPerStep) / contentVh;
+      var chatPortion = (scrollModel.chatSteps * scrollModel.vhPerStep) / scrollModel.contentVh;
+      var carouselPortion = scrollModel.carouselVh / scrollModel.contentVh;
+      var futurePortion = (scrollModel.futureSteps * scrollModel.vhPerStep) / scrollModel.contentVh;
       var carouselEnd = chatPortion + carouselPortion;
 
       var chatT = clamp(contentT / chatPortion, 0, 1);
@@ -292,6 +391,24 @@
       updateDots(activePanelFromCarouselPosition(carouselPosition));
     }
 
+    function onScroll() {
+      if (!scrollModel) scrollModel = rebuildScrollModel();
+
+      if (isReduced()) {
+        applyReducedState();
+        return;
+      }
+
+      var t = scrollProgress();
+      if (scrollModel.mobileMode) onScrollMobile(t);
+      else onScrollDesktop(t);
+    }
+
+    function onLayoutChange() {
+      syncHostHeight();
+      onScroll();
+    }
+
     dots.forEach(function (dot) {
       dot.addEventListener("click", function () {
         var panelIndex = parseInt(dot.getAttribute("data-carousel-dot") || "0", 10);
@@ -304,21 +421,18 @@
     onScroll();
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", function () {
-      syncHostHeight();
-      onScroll();
-    });
+    window.addEventListener("resize", onLayoutChange, { passive: true });
+
+    if (mobileMq && typeof mobileMq.addEventListener === "function") {
+      mobileMq.addEventListener("change", onLayoutChange);
+    } else if (mobileMq && typeof mobileMq.addListener === "function") {
+      mobileMq.addListener(onLayoutChange);
+    }
 
     if (reduceMq && typeof reduceMq.addEventListener === "function") {
-      reduceMq.addEventListener("change", function () {
-        syncHostHeight();
-        onScroll();
-      });
+      reduceMq.addEventListener("change", onLayoutChange);
     } else if (reduceMq && typeof reduceMq.addListener === "function") {
-      reduceMq.addListener(function () {
-        syncHostHeight();
-        onScroll();
-      });
+      reduceMq.addListener(onLayoutChange);
     }
   } catch (e) {}
 })();
