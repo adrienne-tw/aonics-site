@@ -1582,6 +1582,15 @@ html.js .future-copy-bullets > .future-copy-step.is-highlighted {
 }
 
 /* Homepage — team + background logos */
+.home-team-pin {
+  position: relative;
+}
+
+.home-team-pin .home-team {
+  position: sticky;
+  top: 0;
+}
+
 .home-team {
   position: relative;
   overflow: hidden;
@@ -3820,7 +3829,7 @@ html.js .about-cta-copy > .reveal:nth-child(4) {
   display: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .deployed-units-sticky {
     height: 100dvh;
     min-height: 100dvh;

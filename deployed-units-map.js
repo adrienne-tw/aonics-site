@@ -23,7 +23,7 @@
     if (!holdVhMobile || holdVhMobile < 0) holdVhMobile = 0.6;
 
     var mobileMq =
-      typeof window.matchMedia === "function" ? window.matchMedia("(max-width: 900px)") : null;
+      typeof window.matchMedia === "function" ? window.matchMedia("(max-width: 767px)") : null;
 
     function revealVh() {
       if (mobileMq && mobileMq.matches) return scrollVhMobile;
@@ -93,7 +93,15 @@
     var cachedLayoutKey = "";
 
     function refreshLabelGridRefs() {
+      if (!isMobileLayout()) {
+        labelGrid = host.querySelector(".deployed-units-label-grid");
+        if (labelGrid) labelGrid.hidden = true;
+        labelChips = [];
+        return;
+      }
+
       labelGrid = ensureMobileLabelGrid();
+      if (labelGrid) labelGrid.hidden = false;
       labelChips = labelGrid ? labelGrid.querySelectorAll(".deployed-units-label-chip") : [];
     }
 
@@ -281,7 +289,7 @@
         var on = i < n;
         markers[i].classList.toggle("is-visible", on);
         markers[i].setAttribute("aria-hidden", on ? "false" : "true");
-        if (labelChips[i]) {
+        if (isMobileLayout() && labelChips[i]) {
           labelChips[i].classList.toggle("is-visible", on);
           labelChips[i].setAttribute("aria-hidden", on ? "false" : "true");
         }
