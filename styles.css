@@ -1581,6 +1581,18 @@ html.js .future-copy-bullets > .future-copy-step.is-highlighted {
   font-size: clamp(1.1875rem, 2.2vw, 1.375rem);
 }
 
+/* Slide 3 — mobile: one bullet at a time, synced with image scroll */
+@media (max-width: 767px) {
+  html.js .om-assistant-scroll--mobile .future-copy-bullets > .future-copy-step {
+    display: none;
+    opacity: 1;
+  }
+
+  html.js .om-assistant-scroll--mobile .future-copy-bullets > .future-copy-step.is-visible {
+    display: flex;
+  }
+}
+
 /* Homepage — team + background logos */
 .home-team-pin {
   position: relative;

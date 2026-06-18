@@ -225,8 +225,16 @@
 
     function setFutureBulletHighlight(activeIndex) {
       futureBullets.forEach(function (li, j) {
-        li.classList.add("is-visible");
-        li.classList.toggle("is-highlighted", j === activeIndex);
+        var on = j === activeIndex;
+        if (isMobile()) {
+          li.classList.toggle("is-visible", on);
+          li.classList.toggle("is-highlighted", on);
+          li.setAttribute("aria-hidden", on ? "false" : "true");
+        } else {
+          li.classList.add("is-visible");
+          li.classList.toggle("is-highlighted", on);
+          li.setAttribute("aria-hidden", "false");
+        }
       });
     }
 
