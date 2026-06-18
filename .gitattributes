@@ -1,2 +1,0 @@
-assets/hero-video.mp4 filter=lfs diff=lfs merge=lfs -text
-assets/transition.mp4 filter=lfs diff=lfs merge=lfs -text

@@ -8,7 +8,6 @@
 
     var carousel = document.getElementById("om-assistant-carousel");
     var steps = scrollHost.querySelectorAll("[data-chat-step]");
-    var video = scrollHost.querySelector(".om-assistant-bg-video");
     var futureSlides = scrollHost.querySelectorAll(".future-visual-slide");
     var futureBullets = scrollHost.querySelectorAll(".future-copy-step");
     var futureBulletRoot = document.getElementById("future-copy-bullets");
@@ -16,6 +15,7 @@
 
     var chatSteps = steps.length;
     var carouselSteps = parseInt(scrollHost.getAttribute("data-carousel-steps") || "2", 10);
+    var carouselHoldVh = parseFloat(scrollHost.getAttribute("data-carousel-hold-vh") || "0", 10);
     var futureSteps = parseInt(scrollHost.getAttribute("data-future-steps") || "3", 10);
     var vhPerStep = parseFloat(scrollHost.getAttribute("data-vh-per-step") || "1.5", 10);
     var holdVh = parseFloat(scrollHost.getAttribute("data-hold-vh") || "3", 10);
@@ -25,7 +25,9 @@
     if (!futureSteps || futureSteps < 1) futureSteps = 3;
     if (!vhPerStep || vhPerStep < 1) vhPerStep = 1;
     if (!holdVh || holdVh < 0) holdVh = 0;
-    var contentVh = (chatSteps + carouselSteps + futureSteps) * vhPerStep;
+    if (!carouselHoldVh || carouselHoldVh < 0) carouselHoldVh = 0;
+    var carouselVh = carouselSteps * vhPerStep + carouselHoldVh;
+    var contentVh = chatSteps * vhPerStep + carouselVh + futureSteps * vhPerStep;
     var scrollVh = contentVh + holdVh;
 
     var reduceMq =
@@ -46,7 +48,7 @@
       var h = window.innerHeight || document.documentElement.clientHeight || 600;
       scrollHost.style.height = Math.ceil(h * scrollVh) + "px";
       if (scrollAnchor && scrollVh > 0) {
-        var futureStartPct = (((chatSteps + carouselSteps) * vhPerStep) / scrollVh) * 100;
+        var futureStartPct = ((chatSteps * vhPerStep + carouselVh) / scrollVh) * 100;
         scrollAnchor.style.setProperty("--om-scroll-anchor-top", futureStartPct + "%");
       }
     }
@@ -67,16 +69,6 @@
       var full = el.getAttribute("data-typed-text") || "";
       el.textContent = full.slice(0, count);
       return full.length;
-    }
-
-    function setVideoPlaying(play) {
-      if (!video || isReduced()) return;
-      if (play) {
-        var p = video.play();
-        if (p && typeof p.catch === "function") p.catch(function () {});
-      } else {
-        video.pause();
-      }
     }
 
     function setFutureSlideIndex(index) {
@@ -108,7 +100,6 @@
         li.classList.add("is-visible");
       });
       if (futureBulletRoot) futureBulletRoot.classList.add("future-copy-bullets--motion-reduced");
-      setVideoPlaying(false);
     }
 
     function applyChatProgress(chatT) {
@@ -133,19 +124,25 @@
         var typedBudget = Math.floor(stepT * totalChars);
         var remaining = typedBudget;
 
-        typedEls.forEach(function (el, elIndex) {
-          var full = el.getAttribute("data-typed-text") || "";
-          var count = 0;
-          if (active) {
-            count = Math.min(full.length, Math.max(0, remaining));
-            remaining -= count;
-          }
-          setTypedText(el, count);
-          if (active && count > 0 && count < full.length) typing = true;
-          if (active && count === full.length && elIndex < typedEls.length - 1 && remaining > 0) {
-            typing = true;
-          }
-        });
+        if (active && index === 0) {
+          typedEls.forEach(function (el) {
+            setTypedText(el, (el.getAttribute("data-typed-text") || "").length);
+          });
+        } else {
+          typedEls.forEach(function (el, elIndex) {
+            var full = el.getAttribute("data-typed-text") || "";
+            var count = 0;
+            if (active) {
+              count = Math.min(full.length, Math.max(0, remaining));
+              remaining -= count;
+            }
+            setTypedText(el, count);
+            if (active && count > 0 && count < full.length) typing = true;
+            if (active && count === full.length && elIndex < typedEls.length - 1 && remaining > 0) {
+              typing = true;
+            }
+          });
+        }
 
         step.classList.toggle("is-typing", typing);
 
@@ -154,6 +151,26 @@
           bar.style.width = active ? stepT * 100 + "%" : "0%";
         }
       });
+    }
+
+    function carouselPositionFromT(carouselT) {
+      if (carouselHoldVh <= 0 || carouselVh <= 0) {
+        return carouselT * (panelCount - 1);
+      }
+
+      var transVh = vhPerStep;
+      var trans1End = transVh / carouselVh;
+      var holdEnd = (transVh + carouselHoldVh) / carouselVh;
+
+      if (carouselT <= trans1End) {
+        return trans1End > 0 ? carouselT / trans1End : 1;
+      }
+      if (carouselT <= holdEnd) {
+        return 1;
+      }
+
+      var t2 = holdEnd < 1 ? (carouselT - holdEnd) / (1 - holdEnd) : 1;
+      return 1 + t2;
     }
 
     function applyFutureProgress(futureT) {
@@ -175,14 +192,14 @@
       var contentEnd = contentVh / scrollVh;
       var contentT = contentEnd > 0 ? clamp(t / contentEnd, 0, 1) : 0;
       var chatPortion = (chatSteps * vhPerStep) / contentVh;
-      var carouselPortion = (carouselSteps * vhPerStep) / contentVh;
+      var carouselPortion = carouselVh / contentVh;
       var futurePortion = (futureSteps * vhPerStep) / contentVh;
       var carouselEnd = chatPortion + carouselPortion;
 
       var chatT = clamp(contentT / chatPortion, 0, 1);
       var carouselT = contentT <= chatPortion ? 0 : clamp((contentT - chatPortion) / carouselPortion, 0, 1);
       var futureT = contentT <= carouselEnd ? 0 : clamp((contentT - carouselEnd) / futurePortion, 0, 1);
-      var carouselPosition = carouselT * (panelCount - 1);
+      var carouselPosition = carouselPositionFromT(carouselT);
 
       applyChatProgress(chatT);
       carousel.style.setProperty("--carousel-position", String(carouselPosition));
@@ -193,8 +210,6 @@
         setFutureSlideIndex(0);
         setFutureBullets(0);
       }
-
-      setVideoPlaying(carouselPosition > 0.65 && carouselPosition < 1.35);
     }
 
     syncHostHeight();
@@ -217,14 +232,5 @@
         onScroll();
       });
     }
-
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        setVideoPlaying(false);
-      } else if (!isReduced() && carousel) {
-        var pos = parseFloat(carousel.style.getPropertyValue("--carousel-position") || "0");
-        setVideoPlaying(pos > 0.65 && pos < 1.35);
-      }
-    });
   } catch (e) {}
 })();

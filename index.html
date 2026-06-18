@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=205" />
+    <link rel="stylesheet" href="styles.css?v=208" />
   </head>
   <body>
     <header class="site-header" id="site-header">
@@ -139,18 +139,15 @@
     <main>
       <section class="hero" id="top" data-hero-video-bg>
         <div class="hero-video-stack" aria-hidden="true">
-          <video
+          <img
             class="hero-bg-video"
-            muted
-            playsinline
-            disablepictureinpicture
-            disableremoteplayback
-            loop
-            preload="metadata"
-            poster="assets/hero-final.png?v=32"
-          >
-            <source src="assets/hero-video.mp4?v=2" type="video/mp4" />
-          </video>
+            src="assets/sky.png?v=1"
+            alt=""
+            width="1920"
+            height="1080"
+            loading="eager"
+            decoding="async"
+          />
           <div class="hero-video-scrim"></div>
         </div>
         <div class="hero-inner">
@@ -172,6 +169,7 @@
           id="om-assistant-scroll"
           data-chat-steps="3"
           data-carousel-steps="2"
+          data-carousel-hold-vh="2.5"
           data-future-steps="3"
           data-vh-per-step="1.5"
           data-hold-vh="3"
@@ -280,17 +278,15 @@
 
               <div class="om-assistant-panel om-assistant-panel--autonomous" aria-labelledby="om-autonomous-heading">
                 <div class="om-assistant-video-stack" aria-hidden="true">
-                  <video
+                  <img
                     class="om-assistant-bg-video"
-                    muted
-                    playsinline
-                    disablepictureinpicture
-                    disableremoteplayback
-                    loop
-                    preload="metadata"
-                  >
-                    <source src="assets/transition.mp4?v=2" type="video/mp4" />
-                  </video>
+                    src="assets/sky.png?v=1"
+                    alt=""
+                    width="1920"
+                    height="1080"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <div class="om-assistant-video-scrim"></div>
                 </div>
                 <div class="om-assistant-autonomous-inner">
@@ -400,54 +396,59 @@
                     />
                   </div>
                   <div class="future-copy">
-                    <h2 class="reveal">The future of solar maintenance</h2>
+                    <h2 class="reveal">See Everything. Fix Faster.</h2>
                     <ul class="feature-list feature-list--compact future-copy-bullets" id="future-copy-bullets">
                       <li class="future-copy-step is-visible" data-future-step="0">
                         <span class="feature-icon" aria-hidden="true">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="4.5" y="4.5" width="15" height="15" rx="2" />
-                            <path
-                              d="M12.5 7 9 13.5h2.8L10.8 19 16 11h-2.7l-.8-4Z"
-                              fill="currentColor"
-                              stroke="none"
-                            />
-                          </svg>
+                          <img
+                            src="assets/om-icon-geotag.svg?v=5"
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                          />
                         </span>
                         <div class="feature-body">
-                          <h3>Digital Geotag Anomalies</h3>
+                          <h3>Precise geotagging</h3>
                           <p>
-                            Our user platform streamlines the process by providing intuitive tools for visualizing anomalies,
-                            identifying risk factors, and easily monitoring robot activity in real-time.
+                            Every anomaly located to cm-level RTK precision on your asset&rsquo;s digital twin
                           </p>
                         </div>
                       </li>
                       <li class="future-copy-step" data-future-step="1">
                         <span class="feature-icon" aria-hidden="true">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M5 12h14" stroke-linecap="round" />
-                            <path d="M8 9 5 12l3 3M16 15l3-3-3-3" stroke-linecap="round" stroke-linejoin="round" />
-                          </svg>
+                          <img
+                            src="assets/om-icon-autonomous.png?v=1"
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                          />
                         </span>
                         <div class="feature-body">
-                          <h3>Live Robot Command &amp; Control</h3>
+                          <h3>Live command &amp; control</h3>
                           <p>
-                            Aonics Rovers autonomously learn and navigate your entire solar farm, performing inspections with
-                            precision and care.
+                            Watch the robot&rsquo;s view live and dispatch, pause, or redirect a robot from anywhere.
                           </p>
                         </div>
                       </li>
                       <li class="future-copy-step" data-future-step="2">
                         <span class="feature-icon" aria-hidden="true">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 4 20 18H4L12 4Z" stroke-linejoin="round" />
-                            <path d="M12 9v5M12 16h.01" stroke-linecap="round" />
-                          </svg>
+                          <img
+                            src="assets/om-icon-integrations.svg?v=2"
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                          />
                         </span>
                         <div class="feature-body">
-                          <h3>Fully Autonomous First Responder</h3>
+                          <h3>Built-in integrations</h3>
                           <p>
-                            When needed, operators can take remotely operate the robot from anywhere in the world for targeted,
-                            on-demand inspections.
+                            Connects to SCADA, ticketing systems, and any other O&amp;M workflow tools
                           </p>
                         </div>
                       </li>
@@ -463,7 +464,7 @@
       <section class="deployed-units" id="deployed-units" aria-labelledby="deployed-units-heading">
         <div id="deployed-units-host" class="deployed-units-host" data-deployed-steps="5">
           <div class="deployed-units-sticky">
-            <h2 id="deployed-units-heading" class="deployed-units-title">Deployed units</h2>
+            <h2 id="deployed-units-heading" class="deployed-units-title">Deployed Units</h2>
             <div class="deployed-units-map-stage">
               <figure class="deployed-units-map">
                 <img
@@ -814,74 +815,10 @@
           });
         } catch (e) {}
       })();
-
-      (function () {
-        try {
-          var root = document.querySelector(".hero[data-hero-video-bg]");
-          var v = root && root.querySelector(".hero-bg-video");
-          if (!root || !v) return;
-
-          var reduceMq =
-            typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
-
-          function isReduced() {
-            return reduceMq && reduceMq.matches;
-          }
-
-          function heroIntersectsViewport() {
-            var r = root.getBoundingClientRect();
-            return r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight || 0);
-          }
-
-          function setPlaying(play) {
-            if (isReduced()) return;
-            if (play) {
-              var p = v.play();
-              if (p && typeof p.catch === "function") p.catch(function () {});
-            } else {
-              v.pause();
-            }
-          }
-
-          if (!window.IntersectionObserver) {
-            setPlaying(heroIntersectsViewport());
-            document.addEventListener("visibilitychange", function () {
-              if (document.hidden) v.pause();
-              else setPlaying(heroIntersectsViewport());
-            });
-            return;
-          }
-
-          var io = new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (entry) {
-                setPlaying(entry.isIntersecting);
-              });
-            },
-            { root: null, threshold: 0.06, rootMargin: "0px" }
-          );
-
-          io.observe(root);
-
-          if (reduceMq && typeof reduceMq.addEventListener === "function") {
-            reduceMq.addEventListener("change", function () {
-              if (isReduced()) v.pause();
-            });
-          }
-
-          document.addEventListener("visibilitychange", function () {
-            if (document.hidden) {
-              v.pause();
-            } else if (!isReduced() && heroIntersectsViewport()) {
-              setPlaying(true);
-            }
-          });
-        } catch (e) {}
-      })();
     </script>
     <script src="site-header.js"></script>
     <script src="deployed-units-map.js?v=12"></script>
     <script src="home-team-gradient.js?v=2"></script>
-    <script src="om-assistant-chat.js?v=4"></script>
+    <script src="om-assistant-chat.js?v=7"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@
 
 # Local scratch / unused media (too large or not referenced by the site)
 *.mov
+*.mp4
 Untitled.mov
 download (1).mp4
 

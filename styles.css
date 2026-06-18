@@ -653,7 +653,7 @@ body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] .
   body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] {
     background:
       linear-gradient(to top, rgba(5, 10, 18, 0.35) 0%, transparent 45%),
-      url("assets/hero-final.png?v=32") center 62% / cover no-repeat;
+      url("assets/sky.png?v=1") center 62% / cover no-repeat;
   }
 }
 
@@ -1541,6 +1541,17 @@ html.js .future-copy-bullets.future-copy-bullets--motion-reduced > .future-copy-
 
 .future-copy .feature-body p {
   color: rgba(255, 255, 255, 0.88);
+}
+
+.future-copy .feature-icon img {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.future-copy .feature-body h3 {
+  font-size: clamp(1.1875rem, 2.2vw, 1.375rem);
 }
 
 /* Homepage — team + background logos */
@@ -3180,7 +3191,7 @@ html.js .about-cta-copy > .reveal:nth-child(4) {
         rgba(4, 8, 16, 0.2) 100%
       ),
       linear-gradient(to top, rgba(4, 8, 16, 0.38) 0%, transparent 42%),
-      url("assets/digital-platform-hero.jpg?v=2") 52% 42% / cover no-repeat;
+      url("assets/sky.png?v=1") center / cover no-repeat;
   }
 }
 
@@ -3554,7 +3565,7 @@ html.js .about-cta-copy > .reveal:nth-child(4) {
 
 .deployed-units-title {
   display: block;
-  margin: 0 auto clamp(1rem, 2.5vh, 1.75rem);
+  margin: 0 auto clamp(2rem, 4.5vh, 3.25rem);
   max-width: min(38rem, 100%);
   box-sizing: border-box;
   font-size: clamp(1.2rem, 2.25vw + 0.65rem, 2.75rem);

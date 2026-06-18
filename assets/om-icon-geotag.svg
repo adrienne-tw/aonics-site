@@ -1,0 +1,12 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path
+    d="M8 30h24M8 24h10M22 24h10M8 18h6M18 18h14M8 12h14M26 12h6"
+    stroke="white"
+    stroke-width="1.75"
+    stroke-linecap="round"
+  />
+  <path
+    d="M27.5 8.5c2.9 0 5.25 2.35 5.25 5.25 0 3.95-5.25 10.5-5.25 10.5S22.25 17.7 22.25 13.75c0-2.9 2.35-5.25 5.25-5.25Z"
+    fill="white"
+  />
+</svg>
