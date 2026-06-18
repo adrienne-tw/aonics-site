@@ -1,6 +1,8 @@
 /**
  * "Deployed units": pinned scroll distance + map pins revealed by scroll progress.
- * `data-deployed-steps`: viewport-heights of pin host height (smaller = less scrolling to reveal all pins).
+ * `data-deployed-steps`: viewport-heights for pin reveal (desktop).
+ * `data-deployed-hold-vh`: extra viewport-heights to hold all pins visible before exit (desktop).
+ * `data-deployed-scroll-mobile` / `data-deployed-hold-mobile`: same units on mobile.
  */
 (function () {
   try {
@@ -11,8 +13,27 @@
     var count = markers.length;
     if (count < 1) return;
 
-    var scrollVh = parseInt(host.getAttribute("data-deployed-steps") || "5", 10);
-    if (!scrollVh || scrollVh < 2) scrollVh = 5;
+    var scrollVh = parseFloat(host.getAttribute("data-deployed-steps") || "5", 10);
+    var holdVh = parseFloat(host.getAttribute("data-deployed-hold-vh") || "1", 10);
+    var scrollVhMobile = parseFloat(host.getAttribute("data-deployed-scroll-mobile") || "0.7", 10);
+    var holdVhMobile = parseFloat(host.getAttribute("data-deployed-hold-mobile") || "0.6", 10);
+    if (!scrollVh || scrollVh < 1) scrollVh = 3;
+    if (!holdVh || holdVh < 0) holdVh = 1;
+    if (!scrollVhMobile || scrollVhMobile < 0.2) scrollVhMobile = 0.7;
+    if (!holdVhMobile || holdVhMobile < 0) holdVhMobile = 0.6;
+
+    var mobileMq =
+      typeof window.matchMedia === "function" ? window.matchMedia("(max-width: 900px)") : null;
+
+    function revealVh() {
+      if (mobileMq && mobileMq.matches) return scrollVhMobile;
+      return scrollVh;
+    }
+
+    function holdVhForLayout() {
+      if (mobileMq && mobileMq.matches) return holdVhMobile;
+      return holdVh;
+    }
 
     var defaultLabelOrder = ["bottom", "top"];
     var horizontalShifts = [0];
@@ -32,15 +53,79 @@
       return reduceMq && reduceMq.matches;
     }
 
+    function isMobileLayout() {
+      return mobileMq && mobileMq.matches;
+    }
+
+    function ensureMobileLabelGrid() {
+      var stage = host.querySelector(".deployed-units-map-stage");
+      if (!stage) return null;
+
+      var grid = stage.querySelector(".deployed-units-label-grid");
+      if (!grid) {
+        grid = document.createElement("ul");
+        grid.className = "deployed-units-label-grid";
+        grid.setAttribute("role", "list");
+        grid.setAttribute("aria-label", "Deployment locations");
+        stage.appendChild(grid);
+      }
+
+      if (grid.children.length !== markers.length) {
+        grid.textContent = "";
+        for (var i = 0; i < markers.length; i++) {
+          var pin = markers[i];
+          var labelEl = pin.querySelector(".deployed-units-pin-label");
+          var chip = document.createElement("li");
+          chip.className = "deployed-units-label-chip";
+          chip.setAttribute("data-pin-index", String(i));
+          chip.setAttribute("aria-hidden", "true");
+          chip.textContent = labelEl ? labelEl.textContent : "";
+          grid.appendChild(chip);
+        }
+      }
+
+      return grid;
+    }
+
+    var labelGrid = null;
+    var labelChips = [];
+
+    function refreshLabelGridRefs() {
+      labelGrid = ensureMobileLabelGrid();
+      labelChips = labelGrid ? labelGrid.querySelectorAll(".deployed-units-label-chip") : [];
+    }
+
     function syncHostHeight() {
       if (isReduced()) {
         host.style.height = "";
         host.classList.add("deployed-units-host--reduced");
+        host.classList.remove("deployed-units-host--mobile");
         return;
       }
       host.classList.remove("deployed-units-host--reduced");
+      host.classList.toggle("deployed-units-host--mobile", isMobileLayout());
       var h = window.innerHeight || document.documentElement.clientHeight || 600;
-      host.style.height = Math.ceil(h * scrollVh) + "px";
+
+      if (isMobileLayout()) {
+        var sticky = host.querySelector(".deployed-units-sticky");
+        var stickyH = sticky ? sticky.offsetHeight : 0;
+        var runway = h * (revealVh() + holdVhForLayout());
+        var total = Math.ceil(stickyH + runway);
+        host.style.height = Math.max(total, Math.ceil(h + runway * 0.85)) + "px";
+        return;
+      }
+
+      host.style.height = Math.ceil(h * (revealVh() + holdVhForLayout())) + "px";
+    }
+
+    function revealProgress(t) {
+      var reveal = revealVh();
+      var hold = holdVhForLayout();
+      var total = reveal + hold;
+      if (total <= 0) return Math.min(Math.max(t, 0), 1);
+      var revealPortion = reveal / total;
+      if (t <= 0) return 0;
+      return Math.min(t / revealPortion, 1);
     }
 
     function pinDistance() {
@@ -55,7 +140,8 @@
       var scrolled = Math.min(Math.max(0, -rect.top), pd);
       var t = scrolled / pd;
       if (t <= 0) return 0;
-      return Math.min(count, Math.ceil(t * count - 1e-12));
+      var revealT = revealProgress(t);
+      return Math.min(count, Math.ceil(revealT * count - 1e-12));
     }
 
     function rectsOverlap(a, b, padding) {
@@ -94,6 +180,8 @@
     }
 
     function computeAllLabelLayouts() {
+      if (isMobileLayout()) return;
+
       var allPins = [];
       var placed = [];
 
@@ -180,6 +268,10 @@
         var on = i < n;
         markers[i].classList.toggle("is-visible", on);
         markers[i].setAttribute("aria-hidden", on ? "false" : "true");
+        if (labelChips[i]) {
+          labelChips[i].classList.toggle("is-visible", on);
+          labelChips[i].setAttribute("aria-hidden", on ? "false" : "true");
+        }
       }
     }
 
@@ -188,6 +280,7 @@
     }
 
     function onResizeOrInit() {
+      refreshLabelGridRefs();
       syncHostHeight();
       computeAllLabelLayouts();
       syncMarkers();
@@ -198,10 +291,17 @@
       layoutQueued = true;
       requestAnimationFrame(function () {
         layoutQueued = false;
+        refreshLabelGridRefs();
         syncHostHeight();
         computeAllLabelLayouts();
         syncMarkers();
       });
+    }
+
+    if (mobileMq && typeof mobileMq.addEventListener === "function") {
+      mobileMq.addEventListener("change", onResizeOrInit);
+    } else if (mobileMq && typeof mobileMq.addListener === "function") {
+      mobileMq.addListener(onResizeOrInit);
     }
 
     if (reduceMq && typeof reduceMq.addEventListener === "function") {

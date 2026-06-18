@@ -10,13 +10,13 @@
     var steps = scrollHost.querySelectorAll("[data-chat-step]");
     var futureSlides = scrollHost.querySelectorAll(".future-visual-slide");
     var futureBullets = scrollHost.querySelectorAll(".future-copy-step");
-    var futureBulletRoot = document.getElementById("future-copy-bullets");
+    var dots = scrollHost.querySelectorAll("[data-carousel-dot]");
     if (!steps.length || !carousel) return;
 
     var chatSteps = steps.length;
     var carouselSteps = parseInt(scrollHost.getAttribute("data-carousel-steps") || "2", 10);
     var carouselHoldVh = parseFloat(scrollHost.getAttribute("data-carousel-hold-vh") || "0", 10);
-    var futureSteps = parseInt(scrollHost.getAttribute("data-future-steps") || "3", 10);
+    var futureSteps = parseFloat(scrollHost.getAttribute("data-future-steps") || "1.25", 10);
     var vhPerStep = parseFloat(scrollHost.getAttribute("data-vh-per-step") || "1.5", 10);
     var holdVh = parseFloat(scrollHost.getAttribute("data-hold-vh") || "3", 10);
     var scrollAnchor = scrollHost.querySelector(".om-assistant-scroll-anchor");
@@ -71,6 +71,86 @@
       return full.length;
     }
 
+    function activePanelFromCarouselPosition(pos) {
+      if (pos < 0.35) return 0;
+      if (pos < 1.35) return 1;
+      return 2;
+    }
+
+    function panelContentT(panelIndex) {
+      var chatPortion = (chatSteps * vhPerStep) / contentVh;
+      var carouselPortion = carouselVh / contentVh;
+      var futurePortion = (futureSteps * vhPerStep) / contentVh;
+      var carouselEnd = chatPortion + carouselPortion;
+
+      if (panelIndex === 0) {
+        return chatPortion * 0.2;
+      }
+      if (panelIndex === 1) {
+        var transVh = vhPerStep;
+        var trans1End = carouselVh > 0 ? transVh / carouselVh : 0;
+        var holdEnd = carouselVh > 0 ? (transVh + carouselHoldVh) / carouselVh : 0.5;
+        var carouselT = (trans1End + holdEnd) / 2;
+        return chatPortion + carouselPortion * carouselT;
+      }
+      return carouselEnd + futurePortion * 0.35;
+    }
+
+    function updateDots(panelIndex) {
+      dots.forEach(function (dot, index) {
+        var on = index === panelIndex;
+        dot.classList.toggle("is-active", on);
+        if (on) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    function applyPanelState(panelIndex) {
+      if (panelIndex === 0) {
+        applyChatProgress(0.35);
+        carousel.style.setProperty("--carousel-position", "0");
+        setFutureSlideIndex(0);
+        setFutureBulletHighlight(0);
+        updateDots(0);
+        return;
+      }
+      if (panelIndex === 1) {
+        applyChatProgress(1);
+        carousel.style.setProperty("--carousel-position", "1");
+        setFutureSlideIndex(0);
+        setFutureBulletHighlight(0);
+        updateDots(1);
+        return;
+      }
+      applyChatProgress(1);
+      carousel.style.setProperty("--carousel-position", "2");
+      applyFutureProgress(0.35);
+      updateDots(2);
+    }
+
+    function scrollToPanel(panelIndex) {
+      if (isReduced()) {
+        applyPanelState(panelIndex);
+        return;
+      }
+
+      var contentEnd = contentVh / scrollVh;
+      var targetContentT = panelContentT(panelIndex);
+      var targetT = targetContentT * contentEnd;
+      var range = scrollHost.offsetHeight - window.innerHeight;
+      if (range < 1) {
+        applyPanelState(panelIndex);
+        return;
+      }
+
+      var top = scrollHost.getBoundingClientRect().top + window.scrollY;
+      var y = top + targetT * range;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
     function setFutureSlideIndex(index) {
       futureSlides.forEach(function (el, j) {
         var on = j === index;
@@ -79,9 +159,10 @@
       });
     }
 
-    function setFutureBullets(index) {
+    function setFutureBulletHighlight(activeIndex) {
       futureBullets.forEach(function (li, j) {
-        li.classList.toggle("is-visible", j <= index);
+        li.classList.add("is-visible");
+        li.classList.toggle("is-highlighted", j === activeIndex);
       });
     }
 
@@ -96,10 +177,8 @@
       });
       carousel.style.setProperty("--carousel-position", String(panelCount - 1));
       setFutureSlideIndex(0);
-      futureBullets.forEach(function (li) {
-        li.classList.add("is-visible");
-      });
-      if (futureBulletRoot) futureBulletRoot.classList.add("future-copy-bullets--motion-reduced");
+      setFutureBulletHighlight(0);
+      updateDots(2);
     }
 
     function applyChatProgress(chatT) {
@@ -174,12 +253,11 @@
     }
 
     function applyFutureProgress(futureT) {
-      if (futureBulletRoot) futureBulletRoot.classList.remove("future-copy-bullets--motion-reduced");
       var idx = 0;
       if (futureT >= 2 / 3) idx = 2;
       else if (futureT >= 1 / 3) idx = 1;
       setFutureSlideIndex(idx);
-      setFutureBullets(idx);
+      setFutureBulletHighlight(idx);
     }
 
     function onScroll() {
@@ -208,9 +286,19 @@
         applyFutureProgress(futureT);
       } else if (contentT < carouselEnd) {
         setFutureSlideIndex(0);
-        setFutureBullets(0);
+        setFutureBulletHighlight(0);
       }
+
+      updateDots(activePanelFromCarouselPosition(carouselPosition));
     }
+
+    dots.forEach(function (dot) {
+      dot.addEventListener("click", function () {
+        var panelIndex = parseInt(dot.getAttribute("data-carousel-dot") || "0", 10);
+        if (panelIndex < 0 || panelIndex > panelCount - 1) return;
+        scrollToPanel(panelIndex);
+      });
+    });
 
     syncHostHeight();
     onScroll();

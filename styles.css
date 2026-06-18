@@ -830,6 +830,53 @@ body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] .
   box-sizing: border-box;
 }
 
+.om-assistant-dots {
+  position: absolute;
+  bottom: clamp(1.1rem, 2.8vh, 1.85rem);
+  left: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(5, 8, 14, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.om-assistant-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.om-assistant-dot:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.om-assistant-dot.is-active {
+  background: #fff;
+  transform: scale(1.08);
+}
+
+.om-assistant-dot:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .om-assistant-dot {
+    transition: none;
+  }
+}
+
 .om-assistant-carousel {
   --carousel-position: 0;
   position: relative;
@@ -926,13 +973,18 @@ body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] .
   max-width: 36rem;
 }
 
-.om-autonomous-title {
+.om-assistant-title,
+.om-autonomous-title,
+.om-assistant-panel--future .future-copy h2 {
   font-size: clamp(1.75rem, 3.8vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
-  line-height: 1.12;
   color: #fff;
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.om-autonomous-title {
+  line-height: 1.12;
   margin-bottom: clamp(2rem, 4vw, 2.75rem);
   max-width: 14ch;
 }
@@ -1014,12 +1066,7 @@ body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] .
 }
 
 .om-assistant-title {
-  font-size: clamp(1.75rem, 3.8vw, 2.5rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
   text-align: center;
-  color: #fff;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
 }
 
 .om-chat {
@@ -1478,39 +1525,15 @@ body:not(.page-digital-platform):not(.page-hardware) .hero[data-hero-video-bg] .
   pointer-events: auto;
 }
 
-/* Future copy bullets: stack vertically; each step appears below prior as scroll advances (0.45s ease, matches slides) */
-html.js .future-copy-bullets > .future-copy-step:not(.is-visible) {
-  display: none;
-}
-
-html.js .future-copy-bullets > .future-copy-step.is-visible {
+/* Future copy bullets: always visible; active bullet matches screenshot */
+html.js .future-copy-bullets > .future-copy-step {
   display: flex;
-  animation: future-copy-step-in 0.45s ease forwards;
+  opacity: 0.5;
+  transition: opacity 0.45s ease;
 }
 
-@keyframes future-copy-step-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 0.65rem, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.js .future-copy-bullets > .future-copy-step.is-visible {
-    animation: none;
-  }
-}
-
-html.js .future-copy-bullets.future-copy-bullets--motion-reduced > .future-copy-step {
-  display: flex !important;
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
+html.js .future-copy-bullets > .future-copy-step.is-highlighted {
+  opacity: 1;
 }
 
 .future-visual img {
@@ -1533,14 +1556,14 @@ html.js .future-copy-bullets.future-copy-bullets--motion-reduced > .future-copy-
   .future-visual-stack .future-visual-slide {
     transition: none;
   }
+
+  html.js .future-copy-bullets > .future-copy-step {
+    transition: none;
+  }
 }
 
-.future-copy h2 {
-  font-size: clamp(1.65rem, 2.8vw, 2.1rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+.om-assistant-panel--future .future-copy h2 {
   margin-bottom: 2rem;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
 }
 
 .future-copy .feature-body p {
@@ -2058,10 +2081,6 @@ html.js .future-copy-bullets.future-copy-bullets--motion-reduced > .future-copy-
 
   .section-future-inner {
     grid-template-columns: 1fr;
-  }
-
-  .future-copy {
-    order: -1;
   }
 
   .hero-stats {
@@ -3788,6 +3807,112 @@ html.js .about-cta-copy > .reveal:nth-child(4) {
   .deployed-units-pin-marker::after {
     animation: none;
     opacity: 0;
+  }
+
+  .deployed-units-label-chip {
+    opacity: 1;
+    transform: scale(1);
+    transition: none;
+  }
+}
+
+.deployed-units-label-grid {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .deployed-units-sticky {
+    height: auto;
+    min-height: 0;
+    padding-top: calc(var(--site-header-h) + var(--site-header-pad-top) + 0.5rem);
+    padding-bottom: 0.75rem;
+  }
+
+  .deployed-units-title {
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.15rem, 5vw, 1.65rem);
+  }
+
+  .deployed-units-map-stage {
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 0;
+  }
+
+  .deployed-units-map {
+    width: min(100%, calc(24vh * 2754 / 1398));
+    max-height: 24vh;
+    margin: 0 auto;
+    aspect-ratio: 2754 / 1398;
+  }
+
+  .deployed-units-pin {
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+
+  .deployed-units-pin.is-visible {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .deployed-units-pin-label {
+    display: none;
+  }
+
+  .deployed-units-pin-marker {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .deployed-units-label-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+    width: 100%;
+    margin: 0.55rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .deployed-units-label-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.25rem;
+    border: 1px solid var(--pin-color, #ffb84a);
+    border-radius: 4px;
+    background: rgba(14, 29, 58, 0.92);
+    font-size: 0.625rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.92);
+    opacity: 0;
+    transform: scale(0.94);
+    transition:
+      opacity 0.35s ease,
+      transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .deployed-units-label-chip.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .deployed-units-host.deployed-units-host--measure .deployed-units-pin {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .deployed-units-host.deployed-units-host--reduced .deployed-units-pin {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .deployed-units-host.deployed-units-host--reduced .deployed-units-label-chip {
+    opacity: 1;
+    transform: scale(1);
+    transition: none;
   }
 }
 

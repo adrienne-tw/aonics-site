@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=212" />
+    <link rel="stylesheet" href="styles.css?v=222" />
   </head>
   <body>
     <header class="site-header" id="site-header">
@@ -171,9 +171,9 @@
           data-chat-steps="3"
           data-carousel-steps="2"
           data-carousel-hold-vh="2.5"
-          data-future-steps="3"
+          data-future-steps="1.25"
           data-vh-per-step="1.5"
-          data-hold-vh="3"
+          data-hold-vh="1.5"
         >
           <span id="technology" class="om-assistant-scroll-anchor" aria-hidden="true"></span>
           <div class="om-assistant-sticky">
@@ -417,7 +417,7 @@
                           </p>
                         </div>
                       </li>
-                      <li class="future-copy-step" data-future-step="1">
+                      <li class="future-copy-step is-visible" data-future-step="1">
                         <span class="feature-icon" aria-hidden="true">
                           <img
                             src="assets/om-icon-autonomous.png?v=1"
@@ -435,7 +435,7 @@
                           </p>
                         </div>
                       </li>
-                      <li class="future-copy-step" data-future-step="2">
+                      <li class="future-copy-step is-visible" data-future-step="2">
                         <span class="feature-icon" aria-hidden="true">
                           <img
                             src="assets/om-icon-integrations.svg?v=2"
@@ -458,12 +458,40 @@
                 </div>
               </div>
             </div>
+            <nav class="om-assistant-dots" id="om-assistant-dots" aria-label="Carousel slides">
+              <button
+                type="button"
+                class="om-assistant-dot is-active"
+                data-carousel-dot="0"
+                aria-label="O&amp;M Assistant chat"
+                aria-current="true"
+              ></button>
+              <button
+                type="button"
+                class="om-assistant-dot"
+                data-carousel-dot="1"
+                aria-label="Fully autonomous"
+              ></button>
+              <button
+                type="button"
+                class="om-assistant-dot"
+                data-carousel-dot="2"
+                aria-label="Platform features"
+              ></button>
+            </nav>
           </div>
         </div>
       </section>
 
       <section class="deployed-units" id="deployed-units" aria-labelledby="deployed-units-heading">
-        <div id="deployed-units-host" class="deployed-units-host" data-deployed-steps="5">
+        <div
+          id="deployed-units-host"
+          class="deployed-units-host"
+          data-deployed-steps="3"
+          data-deployed-hold-vh="1"
+          data-deployed-scroll-mobile="0.75"
+          data-deployed-hold-mobile="0.65"
+        >
           <div class="deployed-units-sticky">
             <h2 id="deployed-units-heading" class="deployed-units-title">Deployed Units</h2>
             <div class="deployed-units-map-stage">
@@ -586,15 +614,15 @@
           <div class="home-team-top">
             <div class="home-team-copy">
               <h2 id="home-team-heading" class="reveal">
-                Building Physical AI to Enable Real-World Breakthroughs.
+                Building Physical AI that delivers real value in the field
               </h2>
               <a class="btn btn-ghost nav-demo-btn nav-cta reveal" href="contact.html">Join Us</a>
             </div>
             <div class="home-team-desc reveal">
               <p>
-                Aonics is redefining what&rsquo;s possible in utility-scale solar operations and maintenance. The company
-                was founded by leaders from robotics, energy, and AI&mdash;with experience at institutions and companies
-                shaping the next generation of field intelligence.
+                Aonics is a frontier Physical AI company building the operator layer &mdash; the intelligence that
+                commands autonomous robots and delivers them as a service. The company is built by leaders from AI,
+                robotics, and energy, with experience from some of the top institutions in the world.
               </p>
             </div>
           </div>
@@ -818,8 +846,8 @@
       })();
     </script>
     <script src="site-header.js"></script>
-    <script src="deployed-units-map.js?v=12"></script>
+    <script src="deployed-units-map.js?v=16"></script>
     <script src="home-team-gradient.js?v=2"></script>
-    <script src="om-assistant-chat.js?v=7"></script>
+    <script src="om-assistant-chat.js?v=11"></script>
   </body>
 </html>
