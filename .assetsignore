@@ -1,0 +1,10 @@
+.git
+.gitignore
+.gitattributes
+wrangler.toml
+.assetsignore
+*.code-workspace
+
+# Oversized files (>25 MiB Workers asset limit). Video is served from R2 instead.
+assets/digital-platform-hero-bg.mp4
+assets/Hardware/Banner.png
